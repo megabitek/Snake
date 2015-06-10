@@ -1,19 +1,14 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snake;
-
- 
+package graphic;
 
 /**
  *
  * @author admin
  */
-public class Frog {
-   public static int frogCount; 
-   final static int cellCode=1;  
+public class Frame {
     
 }

@@ -4,22 +4,56 @@
  * and open the template in the editor.
  */
 package snake;
-import javax.swing.*;
+
 /**
  *
  * @author admin
  */
 public class Snake {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        JFrame mainFrame = new JFrame("Java Snake");
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(1100, 600);
-        mainFrame.setVisible(true);
-    }
+    final static int cellCode = 2;
     
+    int[] headCoordinates;
+    //first element of array  - gorizontal coordinate; 
+    // second element - vertical coordinate; 
+    
+    
+    int [] tailCoordinates;
+    int length;
+    
+    Snake(){
+    
+    };
+    
+
+    /*when snake moves up, movedown not avaliable*/
+    void moveUp() {
+        headCoordinates[1]--; 
+    }
+
+    ;
+    
+    
+    void moveDown() {
+        headCoordinates[1]++; 
+    }
+
+    ;
+    
+    /*when snake moves left, moveRight not avaliable*/
+    void moveLeft() {
+        headCoordinates[0]--; 
+    }
+
+    ;
+    void moveRight() {
+        headCoordinates[0]++; 
+    }
+;
+    /*snake grow when eat frog*/
+    void grow(){}
+
+/**
+ * @param args the command line arguments
+ */
 }
