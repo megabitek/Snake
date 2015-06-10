@@ -10,16 +10,29 @@ package snake;
  * @author admin
  */
 public class Field {
-public static int gorizontalSize; 
-public static int verticalSize; 
+public  int gorizontalSize; 
+public  int verticalSize; 
 Cell[][] cells; 
 
-
-
-void drawSnake (Snake snake){
-   
-
+Field(int gorizontalSize, int verticalSize){
+    cells = new Cell[gorizontalSize][verticalSize]; 
+    for (int i = 0; i<gorizontalSize; i++){
+    for(int j=0; j<verticalSize; j++){
+    cells[i][j]=new Cell(); 
+    }
+    }
+    this.gorizontalSize=gorizontalSize; 
+    this.verticalSize=verticalSize;
+    
 }
 
 
+
+
+void printField( ){
+    for (int i = 0; i<gorizontalSize; i++){
+    for(int j=0; j<verticalSize; j++){
+    System.out.println(cells[i][j]); 
+    }}
+}
 }

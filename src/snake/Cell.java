@@ -21,5 +21,9 @@ public class Cell {
     int getCode() {
         return this.code;
     }
+    @Override
+    public String toString(){
+        return new Integer(code).toString();
+    }
 
 }

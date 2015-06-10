@@ -19,12 +19,14 @@ public class SnakeGame {
     
      public static void main(String[] args) {
         // TODO code application logic here
-        JFrame mainFrame = new JFrame("Java Snake");
+        /*JFrame mainFrame = new JFrame("Java Snake");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(1100, 600);
         mainFrame.add(new GraphicCell());
         mainFrame.setVisible(true);
-    }
+  */
+     Field field = new Field(5, 6); 
+     field.printField();
     
     
-}
+}}

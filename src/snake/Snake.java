@@ -5,72 +5,68 @@
  */
 package snake;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author admin
  */
 public class Snake {
 
-    final static int cellCode = 2;
+    static int snakeFirstLenght;
+    final static int CELL_CODE = 2;
+    int[] headCoords; 
 
-    int[] headCoordinates;
-    //first element of array  - gorizontal coordinate; 
-    // second element - vertical coordinate; 
+    ArrayList<int[]> snakeCoordinates;
 
-    int[] tailCoordinates;
-    int length;
+    Snake(int snakeLength) {
+        //новая змея создается в правом верхнем углу
+        
+        for (int i = 0; i < snakeLength; i++) {
+            int[] coors = new int[]{0, i};
+            snakeCoordinates.add(coors);
 
-    Snake() {
-
+        }
+        headCoords=snakeCoordinates.get((int)snakeLength); 
     }
 
     ;
     
-    int[] getHeadCoordinates() {
-        return headCoordinates;
-    }
-    void setHeadCoordinates(int [] newCoordinates){
-    headCoordinates[0]=newCoordinates[0];
-    headCoordinates[1]=newCoordinates[1];
-    }
-    int[] getTailCoordinates() {
-        return tailCoordinates;
-    }
-    void setTailCoordinates(int [] newCoordinates){
-    tailCoordinates[0]=newCoordinates[0];
-    tailCoordinates[1]=newCoordinates[1];
-    }
+    
     
 
     ;
     /*when snake moves up, movedown not avaliable*/
     void moveUp() {
-        headCoordinates[1]--;
+     int[] newCoords=new int[]{headCoords[0]-1, headCoords[1]};  
+     snakeCoordinates.remove(0);
+     snakeCoordinates.add(newCoords); 
+
     }
 
     ;
     
     
     void moveDown() {
-        headCoordinates[1]++;
+
     }
 
     ;
     
     /*when snake moves left, moveRight not avaliable*/
     void moveLeft() {
-        headCoordinates[0]--;
+
     }
 
     ;
     void moveRight() {
-        headCoordinates[0]++;
+
     }
 
     ;
     /*snake grow when eat frog*/
     void grow(int[] frogCoordinates) {
-        
+
     }
 
     /**
