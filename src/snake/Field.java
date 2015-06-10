@@ -26,13 +26,19 @@ Field(int gorizontalSize, int verticalSize){
     
 }
 
+void addSnake(Snake snake){
+for (int[] coors:snake.snakeCoordinates){
+cells[coors[0]][coors[1]].setCode(Snake.CELL_CODE);
+}}
+
 
 
 
 void printField( ){
     for (int i = 0; i<gorizontalSize; i++){
     for(int j=0; j<verticalSize; j++){
-    System.out.println(cells[i][j]); 
-    }}
+    System.out.print(cells[i][j]); 
+    }
+    System.out.println();}
 }
 }
