@@ -21,13 +21,13 @@ public class Snake {
 
     Snake(int snakeLength) {
         //новая змея создается в правом верхнем углу
-        
+        snakeCoordinates=new ArrayList();
         for (int i = 0; i < snakeLength; i++) {
             int[] coors = new int[]{0, i};
             snakeCoordinates.add(coors);
 
         }
-        headCoords=snakeCoordinates.get((int)snakeLength); 
+        headCoords=snakeCoordinates.get((int)snakeLength-1); 
     }
 
     ;

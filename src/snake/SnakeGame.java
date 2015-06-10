@@ -27,7 +27,9 @@ public class SnakeGame {
   */
      Field field = new Field(5, 6); 
      field.printField();
-     Snake snake = new Snake(2); 
+     Snake snake = new Snake(2);
+     field.addSnake(snake);
+     field.printField();
     
     
 }}
