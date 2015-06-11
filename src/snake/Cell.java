@@ -10,6 +10,8 @@ package snake;
  * @author admin
  */
 public class Cell {
+    
+    public static final int EMPTY_CELL_CODE=0; 
 
     //атрибут показывает что находится в ячейке, определяется из значения свойства cellCode класса Frog и Snake
     int code;

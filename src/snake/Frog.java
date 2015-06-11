@@ -14,6 +14,15 @@ package snake;
  */
 public class Frog {
    public static int frogCount; 
-   final static int cellCode=1;  
-    
+   final static int CELL_CODE_FROG=1;  
+   int[] frogCoords; 
+   
+   Frog(int [] coords) {
+       frogCoords = coords; 
+   }
+   void jumpUp(
+   ){};
+   void jumpDown(){};
+   void jumpRight(){}
+   void jumpLeft(){}
 }

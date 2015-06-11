@@ -27,21 +27,34 @@ public class SnakeGame {
   */
      Field field = new Field(5, 6); 
      field.printField();
-     Snake snake = new Snake(2);
+     Snake snake = new Snake(3);
      field.addSnake(snake);
      field.printField();
+     
      snake.moveDown();
      field.addSnake(snake);
      field.printField();
-     snake.moveLeft();
+     
+     snake.moveLeft();     
      field.addSnake(snake);
      field.printField();
-     snake.moveRight();
+     
+     snake.moveRight();     
      field.addSnake(snake);
      field.printField();
-     snake.moveUp();
+     
+     snake.moveDown();     
      field.addSnake(snake);
      field.printField();
-    
+     
+     snake.moveRight();     
+     field.addSnake(snake);
+     field.printField();
+     
+     snake.moveDown();
+     int[] frogCoordinates = field.findRandomCell(); 
+    Frog frog= new Frog(frogCoordinates);
+    field.addFrog(frog);
+    field.printField();
     
 }}
