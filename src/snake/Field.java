@@ -27,8 +27,16 @@ public class Field {
         this.verticalSize = verticalSize;
 
     }
+    void deleteAll(){
+        for (int i = 0; i < gorizontalSize; i++) {
+            for (int j = 0; j < verticalSize; j++) {
+                cells[i][j].code=0;
+            }
+        }
+    }
 
     void addSnake(Snake snake) {
+        deleteAll(); 
         if (isWall(snake)) {
             System.out.println("Wall");
         } else {

@@ -15,19 +15,19 @@ public class Snake {
 
     static int snakeFirstLenght;
     final static int CELL_CODE = 2;
-    int[] headCoords; 
+    int[] headCoords;
 
     ArrayList<int[]> snakeCoordinates;
 
     Snake(int snakeLength) {
         //новая змея создается в правом верхнем углу
-        snakeCoordinates=new ArrayList();
+        snakeCoordinates = new ArrayList();
         for (int i = 0; i < snakeLength; i++) {
             int[] coors = new int[]{0, i};
             snakeCoordinates.add(coors);
 
         }
-        headCoords=snakeCoordinates.get((int)snakeLength-1); 
+        headCoords = snakeCoordinates.get((int) snakeLength - 1);
     }
 
     ;
@@ -36,50 +36,72 @@ public class Snake {
     
 
     ;
-    /*when snake moves up, movedown not avaliable*/
+    
     void moveUp() {
-     int[] newCoords=new int[]{headCoords[0]-1, headCoords[1]};  
-    if (canMove(newCoords)){
-     snakeCoordinates.remove(0);
-     snakeCoordinates.add(newCoords); 
-    }
-    this.headCoords=newCoords; 
-    }
+        System.out.println("Snake go up");
+        int[] newCoords = new int[]{headCoords[0] - 1, headCoords[1]};
+        if (canMove(newCoords)) {
+            snakeCoordinates.remove(0);
+            snakeCoordinates.add(newCoords);
+            this.headCoords = newCoords;
+        }else
+        System.out.println("can't go up!");
+    };
 
-    ;
-    
-    
     void moveDown() {
-        
+         System.out.println("Snake go down");
 
+        int[] newCoords = new int[]{headCoords[0] + 1, headCoords[1]};
+        if (canMove(newCoords)) {
+            snakeCoordinates.remove(0);
+            snakeCoordinates.add(newCoords);
+            this.headCoords = newCoords;
+        }else
+        System.out.println("can't go down!");
     }
 
-    ;
     
-    /*when snake moves left, moveRight not avaliable*/
+    
     void moveLeft() {
+                System.out.println("Snake go left");
+        int[] newCoords = new int[]{headCoords[0], headCoords[1]-1};
+        if (canMove(newCoords)) {
+            snakeCoordinates.remove(0);
+            snakeCoordinates.add(newCoords);
+            this.headCoords = newCoords;
+        }else
+        System.out.println("can't go left!");
+        
 
     }
 
     ;
     void moveRight() {
+        System.out.println("Snake go right");
+        int[] newCoords = new int[]{headCoords[0], headCoords[1]-1};
+        if (canMove(newCoords)) {
+            snakeCoordinates.remove(0);
+            snakeCoordinates.add(newCoords);
+            this.headCoords = newCoords;
+        }else
+        System.out.println("can't go left!");
+        
+
 
     }
 
     ;
-    /*snake grow when eat frog*/
+  
     void grow(int[] frogCoordinates) {
+        this.headCoords=frogCoordinates;
+        
+    };
+
+    boolean canMove(int[] newCoords) {
+
+        return (!snakeCoordinates.contains(newCoords));
 
     }
-    
-   boolean canMove(int [] newCoords){
-       
-        return (!snakeCoordinates.contains(newCoords));
-           
-        
-        
-        
-   }
 
     /**
      * @param args the command line arguments

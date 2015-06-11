@@ -30,7 +30,7 @@ public class SnakeGame {
      Snake snake = new Snake(2);
      field.addSnake(snake);
      field.printField();
-     snake.moveUp();
+     snake.moveDown();
      field.addSnake(snake);
      field.printField();
     
