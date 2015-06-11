@@ -39,15 +39,18 @@ public class Snake {
     /*when snake moves up, movedown not avaliable*/
     void moveUp() {
      int[] newCoords=new int[]{headCoords[0]-1, headCoords[1]};  
+    if (canMove(newCoords)){
      snakeCoordinates.remove(0);
      snakeCoordinates.add(newCoords); 
-
+    }
+    this.headCoords=newCoords; 
     }
 
     ;
     
     
     void moveDown() {
+        
 
     }
 
@@ -68,6 +71,15 @@ public class Snake {
     void grow(int[] frogCoordinates) {
 
     }
+    
+   boolean canMove(int [] newCoords){
+       
+        return (!snakeCoordinates.contains(newCoords));
+           
+        
+        
+        
+   }
 
     /**
      * @param args the command line arguments

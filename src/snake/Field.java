@@ -10,35 +10,44 @@ package snake;
  * @author admin
  */
 public class Field {
-public  int gorizontalSize; 
-public  int verticalSize; 
-Cell[][] cells; 
 
-Field(int gorizontalSize, int verticalSize){
-    cells = new Cell[gorizontalSize][verticalSize]; 
-    for (int i = 0; i<gorizontalSize; i++){
-    for(int j=0; j<verticalSize; j++){
-    cells[i][j]=new Cell(); 
+    public int gorizontalSize;
+    public int verticalSize;
+    Cell[][] cells;
+
+    Field(int gorizontalSize, int verticalSize) {
+
+        cells = new Cell[gorizontalSize][verticalSize];
+        for (int i = 0; i < gorizontalSize; i++) {
+            for (int j = 0; j < verticalSize; j++) {
+                cells[i][j] = new Cell();
+            }
+        }
+        this.gorizontalSize = gorizontalSize;
+        this.verticalSize = verticalSize;
+
     }
+
+    void addSnake(Snake snake) {
+        if (isWall(snake)) {
+            System.out.println("Wall");
+        } else {
+            for (int[] coors : snake.snakeCoordinates) {
+                cells[coors[0]][coors[1]].setCode(Snake.CELL_CODE);
+            }
+        }
     }
-    this.gorizontalSize=gorizontalSize; 
-    this.verticalSize=verticalSize;
-    
-}
 
-void addSnake(Snake snake){
-for (int[] coors:snake.snakeCoordinates){
-cells[coors[0]][coors[1]].setCode(Snake.CELL_CODE);
-}}
-
-
-
-
-void printField( ){
-    for (int i = 0; i<gorizontalSize; i++){
-    for(int j=0; j<verticalSize; j++){
-    System.out.print(cells[i][j]); 
+    boolean isWall(Snake snake) {
+        return (snake.headCoords[0] >= verticalSize || snake.headCoords[0] < 0) || (snake.headCoords[1] >= gorizontalSize & snake.headCoords[1] < 0);
     }
-    System.out.println();}
-}
+
+    void printField() {
+        for (int i = 0; i < gorizontalSize; i++) {
+            for (int j = 0; j < verticalSize; j++) {
+                System.out.print(cells[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }
