@@ -58,8 +58,8 @@ public class Field {
          int gorizontalCoord; 
          int verticalCoord; 
          do {
-         gorizontalCoord= rand.nextInt(gorizontalSize+1)-1;
-         verticalCoord= rand.nextInt(verticalSize+1)-1; }
+         gorizontalCoord= rand.nextInt(gorizontalSize);
+         verticalCoord= rand.nextInt(verticalSize); }
          while (cells[gorizontalCoord][verticalCoord].code != Cell.EMPTY_CELL_CODE) ;
         int[] randomCell = new int[]{gorizontalCoord, verticalCoord};
          
@@ -68,7 +68,8 @@ public class Field {
   }
 
      void addFrog(Frog frog) {
-         cells[frog.frogCoords[0]][frog.frogCoords[1]].code=Frog.CELL_CODE_FROG;
+         int[] frogCoords = frog.getFrogCoords(); 
+         cells[frogCoords[0]][frogCoords[1]].code=Frog.CELL_CODE_FROG;
      }
              
     boolean isWall(Snake snake) {
