@@ -78,7 +78,7 @@ public class Snake {
     ;
     void moveRight() {
         System.out.println("Snake go right");
-        int[] newCoords = new int[]{headCoords[0], headCoords[1]-1};
+        int[] newCoords = new int[]{headCoords[0], headCoords[1]+1};
         if (canMove(newCoords)) {
             snakeCoordinates.remove(0);
             snakeCoordinates.add(newCoords);

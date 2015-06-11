@@ -33,6 +33,15 @@ public class SnakeGame {
      snake.moveDown();
      field.addSnake(snake);
      field.printField();
+     snake.moveLeft();
+     field.addSnake(snake);
+     field.printField();
+     snake.moveRight();
+     field.addSnake(snake);
+     field.printField();
+     snake.moveUp();
+     field.addSnake(snake);
+     field.printField();
     
     
 }}
