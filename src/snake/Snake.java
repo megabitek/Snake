@@ -13,13 +13,19 @@ import java.util.ArrayList;
  */
 public class Snake {
 
-    static int snakeFirstLenght;
+    enum MoveDirections {
+
+        LEFT, RIGHT, UP, DOWN
+    };
+
     final static int CELL_CODE_TAIL = 4;
     final static int CELL_CODE_BODY = 3;
     final static int CELL_CODE_HEAD = 2;
+    
+    MoveDirections moveDirection;
 
     private int[] headCoords;
-
+    
     private ArrayList<int[]> snakeCoordinates;
 
     Snake(int snakeLength) {
@@ -31,7 +37,19 @@ public class Snake {
 
         }
         headCoords = snakeCoordinates.get((int) snakeLength - 1);
+        moveDirection = MoveDirections.RIGHT;
     }
+
+    //private void setMoveDirection(Move){};  
+
+    MoveDirections getMoveDirection() {
+        return moveDirection;
+    }
+
+    
+    void setMoveDirection(MoveDirections moveDirection){
+       this.moveDirection=moveDirection; 
+   }
 
     void setHeadCoords(int[] coords) {
         this.headCoords = coords;
@@ -59,6 +77,7 @@ public class Snake {
         } else {
             System.out.println("can't go up!");
         }
+        moveDirection = MoveDirections.UP;
     }
 
     ;
@@ -74,6 +93,7 @@ public class Snake {
         } else {
             System.out.println("can't go down!");
         }
+        moveDirection = MoveDirections.DOWN;
     }
 
     void moveLeft() {
@@ -86,7 +106,7 @@ public class Snake {
         } else {
             System.out.println("can't go left!");
         }
-
+        moveDirection = MoveDirections.LEFT;
     }
 
     ;
@@ -100,7 +120,7 @@ public class Snake {
         } else {
             System.out.println("can't go right!");
         }
-
+        moveDirection = MoveDirections.RIGHT;
     }
 
     ;
