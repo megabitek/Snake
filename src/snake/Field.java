@@ -74,7 +74,7 @@ public class Field {
              
     boolean isWall(Snake snake) {
         int [] snakeHeadCoords= snake.getHeadCoords(); 
-        return (snakeHeadCoords[0] >= verticalSize || snakeHeadCoords[0] < 0) || (snakeHeadCoords[1] >= gorizontalSize & snakeHeadCoords[1] < 0);
+        return (snakeHeadCoords[0] >= verticalSize || snakeHeadCoords[0] < 0) || (snakeHeadCoords[1] >= gorizontalSize || snakeHeadCoords[1] < 0);
     }
 
 
