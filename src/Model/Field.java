@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snake;
+package Model;
 
 import java.util.Random;
 
@@ -13,11 +13,11 @@ import java.util.Random;
  */
 public class Field {
 
-    public int gorizontalSize;
-    public int verticalSize;
+    public static int gorizontalSize;
+    public static int verticalSize;
     Cell[][] cells;
-    boolean findFrog; 
-    int[] frogCoords;  
+    boolean findFrog;
+    int[] frogCoords;
 
     Field(int gorizontalSize, int verticalSize) {
 
@@ -39,14 +39,11 @@ public class Field {
             }
         }
     }
-   void snakeFindFrog(int []snakeHeadCoords){
-       this.findFrog=true;
-       frogCoords=snakeHeadCoords;  
-   }
 
-       
-
-   
+    void snakeFindFrog(int[] snakeHeadCoords) {
+        this.findFrog = true;
+        frogCoords = snakeHeadCoords;
+    }
 
     /*поиск пустой ячейки для добавления лягушки */
     int[] findRandomCell() {
@@ -62,8 +59,17 @@ public class Field {
         return randomCell;
 
     }
-    
-   
+
+    public int[][] getCells() {
+        int[][] cellsArray = new int[gorizontalSize][verticalSize];
+        for (int i = 0; i < gorizontalSize; i++) {
+            for (int j = 0; j < verticalSize; j++) {
+                cellsArray[i][j] = cells[i][j].code;
+            }
+        }
+        return cellsArray;
+    }
+
     void printField() {
         for (int i = 0; i < gorizontalSize; i++) {
             for (int j = 0; j < verticalSize; j++) {
@@ -76,7 +82,5 @@ public class Field {
             System.out.println();
         }
     }
-
-   
 
 }

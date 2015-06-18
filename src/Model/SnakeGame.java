@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snake;
+package Model;
 
-import graphic.GraphicCell;
+import View.GraphicCells;
+import View.MainFrame;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,15 +20,17 @@ public class SnakeGame {
 
     static int snakeLenght ;
     static int frogCount;
-    static int fieldSizeGorizontal;
-    static int fieldSizeVertical;
+    
     static boolean snakeAlive= true; 
     
     public static void main(String[] args) throws IOException, InterruptedException {
 
        
-        Field field = new Field(5, 6);
-        field.printField();
+        Field field = new Field(15, 16);
+        int[][] fieldCells= field.getCells();
+        
+        MainFrame mainFrame= new MainFrame(fieldCells); 
+        
        
      
        
