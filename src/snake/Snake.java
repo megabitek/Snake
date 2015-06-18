@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author admin
  */
-public class Snake {
+public class Snake extends FieldObject {
 
     enum MoveDirections {
 
@@ -19,13 +19,13 @@ public class Snake {
     };
 
     final static int CELL_CODE_TAIL = 4;
-    final static int CELL_CODE_BODY = 3;
+    final static int CELL_CODE = 3;
     final static int CELL_CODE_HEAD = 2;
-    
+
     MoveDirections moveDirection;
 
-    private int[] headCoords;
-    
+    private int[] mainCoords;
+
     private ArrayList<int[]> snakeCoordinates;
 
     Snake(int snakeLength) {
@@ -36,23 +36,39 @@ public class Snake {
             snakeCoordinates.add(coors);
 
         }
-        headCoords = snakeCoordinates.get((int) snakeLength - 1);
+        mainCoords = snakeCoordinates.get((int) snakeLength - 1);
         moveDirection = MoveDirections.RIGHT;
     }
 
-    //private void setMoveDirection(Move){};  
+    @Override
+    void addOnField(Field field) {
+         int[] snakeHeadCoords = getHeadCoords();
+        if ((field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code)==1)
+            field.snakeFindFrog(snakeHeadCoords); 
+
+        for (int[] coords : getSnakeCoordinates()) {
+            field.cells[coords[0]][coords[1]].setCode(Snake.CELL_CODE);
+        }
+       
+
+        field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code = Snake.CELL_CODE_HEAD;
+        int[] tailCoords = getSnakeCoordinates().get(0);
+        field.cells[tailCoords[0]][tailCoords[1]].code = Snake.CELL_CODE_TAIL;
+
+    }
+
+    
 
     MoveDirections getMoveDirection() {
         return moveDirection;
     }
 
-    
-    void setMoveDirection(MoveDirections moveDirection){
-       this.moveDirection=moveDirection; 
-   }
+    void setMoveDirection(MoveDirections moveDirection) {
+        this.moveDirection = moveDirection;
+    }
 
     void setHeadCoords(int[] coords) {
-        this.headCoords = coords;
+        this.mainCoords = coords;
     }
 
     void setSnakeCoordinates(ArrayList<int[]> snakeCoords) {
@@ -60,87 +76,107 @@ public class Snake {
     }
 
     int[] getHeadCoords() {
-        return headCoords;
+        return mainCoords;
     }
 
     ArrayList<int[]> getSnakeCoordinates() {
         return snakeCoordinates;
     }
 
+    @Override
     void moveUp() {
-        System.out.println("Snake go up");
-        int[] newCoords = new int[]{headCoords[0] - 1, headCoords[1]};
-        if (canMove(newCoords)) {
+        if (canMove(MoveDirections.UP)) {
+            super.moveUp();
             snakeCoordinates.remove(0);
-            snakeCoordinates.add(newCoords);
-            this.headCoords = newCoords;
+            snakeCoordinates.add(mainCoords);
         } else {
+
             System.out.println("can't go up!");
+            return;
         }
         moveDirection = MoveDirections.UP;
     }
 
     ;
 
+    @Override
     void moveDown() {
-        System.out.println("Snake go down");
-
-        int[] newCoords = new int[]{headCoords[0] + 1, headCoords[1]};
-        if (canMove(newCoords)) {
+        if (canMove(MoveDirections.DOWN)) {
+            super.moveDown();
             snakeCoordinates.remove(0);
-            snakeCoordinates.add(newCoords);
-            this.headCoords = newCoords;
+            snakeCoordinates.add(mainCoords);
         } else {
+
             System.out.println("can't go down!");
+            return;
         }
         moveDirection = MoveDirections.DOWN;
     }
 
+    @Override
     void moveLeft() {
-        System.out.println("Snake go left");
-        int[] newCoords = new int[]{headCoords[0], headCoords[1] - 1};
-        if (canMove(newCoords)) {
+        if (canMove(MoveDirections.LEFT)) {
+            super.moveLeft();
             snakeCoordinates.remove(0);
-            snakeCoordinates.add(newCoords);
-            this.headCoords = newCoords;
+            snakeCoordinates.add(mainCoords);
         } else {
-            System.out.println("can't go left!");
+
+            System.out.println("can't go down!");
+            return;
         }
         moveDirection = MoveDirections.LEFT;
     }
 
-    ;
+    @Override
     void moveRight() {
-        System.out.println("Snake go right");
-        int[] newCoords = new int[]{headCoords[0], headCoords[1] + 1};
-        if (canMove(newCoords)) {
+        if (canMove(MoveDirections.RIGHT)) {
+            super.moveRight();
             snakeCoordinates.remove(0);
-            snakeCoordinates.add(newCoords);
-            this.headCoords = newCoords;
+            snakeCoordinates.add(mainCoords);
         } else {
-            System.out.println("can't go right!");
+
+            System.out.println("can't go down!");
+            return;
         }
         moveDirection = MoveDirections.RIGHT;
     }
 
-    ;
-  
     void grow(int[] frogCoordinates) {
-        this.headCoords = frogCoordinates;
+        this.mainCoords = frogCoordinates;
 
     }
 
-    ;
+    @Override
+     public void run(){
+      //  while (true){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        makeMove();
+        addOnField(field);
+        
+        //System.out.println("snake makes move");}
+
+    }//}
+
+    public void makeMove() {
+        if (moveDirection == MoveDirections.DOWN) {
+            moveDown();
+        } else if (moveDirection == MoveDirections.UP) {
+            moveUp();
+        } else if (moveDirection == MoveDirections.RIGHT) {
+            moveRight();
+        } else if (moveDirection == MoveDirections.LEFT) {
+            moveLeft();
+        }
+    }
+   
 
     
-    boolean canMove(int[] newCoords) {
-        for (int i = snakeCoordinates.size() - 1; i > 0; i--) {
-            if ((newCoords[0] == snakeCoordinates.get(i)[0]) & (newCoords[1] == snakeCoordinates.get(i)[1])) {
-                return false;
+    boolean canMove(MoveDirections moveDir) {
+        return (!(moveDirection == MoveDirections.DOWN & moveDir == MoveDirections.UP) || (moveDirection == MoveDirections.UP & moveDir == MoveDirections.DOWN) || (moveDirection == MoveDirections.LEFT & moveDir == MoveDirections.RIGHT) || (moveDirection == MoveDirections.RIGHT & moveDir == MoveDirections.LEFT));
 
-            }
-
-        }
-        return true;
     }
 }

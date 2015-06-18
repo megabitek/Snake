@@ -6,39 +6,113 @@
  */
 package snake;
 
+import java.util.Random;
+
 /**
  *
  * @author admin
  */
-public class Frog {
-
+public class Frog extends FieldObject {
+    
     public static int frogCount;
-    final static int CELL_CODE_FROG = 1;
-    private int[] frogCoords;
-
+    final static int CELL_CODE = 1;
+    private int[] mainCoords;
+    
     Frog(int[] coords) {
-        frogCoords = coords;
+        mainCoords = coords;
+    }
+   boolean eatFrog(){
+       
+ return ((field.findFrog)&&((mainCoords[0]==field.frogCoords[0])||(mainCoords[1]==field.frogCoords[1])));
+ 
+   }
+
+
+    
+    @Override
+    int[] getMainCoords() {
+        return mainCoords;
     }
 
-    int[] getFrogCoords() {
-        return frogCoords;
+    @Override
+    void deleteFromField(Field field) {
+        field.cells[mainCoords[0]][mainCoords[1]].setCode(Cell.EMPTY_CELL_CODE);
     }
-
-    void setFrogCoords(int[] frogCoords) {
-        this.frogCoords = frogCoords;
+    
+    @Override
+    void setMainCoords(int[] frogCoords) {
+        this.mainCoords = frogCoords;
     }
-
-    void jumpUp() {
+    
+    void addOnField(Field field) {
+        
+        int[] frogCoords = getMainCoords();
+        
+        field.cells[frogCoords[0]][frogCoords[1]].code = Frog.CELL_CODE;
+        
     }
-
+    
+    @Override
+    void moveUp() {
+        super.moveUp();
+    }
+    
     ;
-    void jumpDown() {
+    @Override
+    void moveDown() {
+        super.moveDown();
+    }
+    
+    @Override
+    void moveRight() {
+        super.moveRight();
+    }
+    
+    @Override
+    void moveLeft() {
+        super.moveLeft();
     }
 
-    ;
-    void jumpRight() {
+    @Override
+    public void run() {
+        if (eatFrog()) super.died();
+        deleteFromField(field);
+        
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        int dir = findDirection();
+        switch (dir) {
+            case 0: {
+                moveDown();
+                break;
+            }
+            case 1: {
+                moveLeft();
+                break;
+            }
+            case 2: {
+                moveRight();
+                break;
+            }
+            case 3: {
+                moveUp();
+                break;
+            }
+            
+        }
+        addOnField(field);
+      
     }
+//field.addFrog(frog);
 
-    void jumpLeft() {
+
+
+int findDirection() {
+        Random rand = new Random();
+        return rand.nextInt(3);
     }
-}
+    } 
+
