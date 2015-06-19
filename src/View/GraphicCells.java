@@ -39,7 +39,7 @@ GraphicCells(int cells[][]){
             for (int j = 0; j < arrayRow.length; j++) {
                 y=(j*MainFrame.CELL_SIZE)+5;
                 img= new ImageIcon(findImage(arrayRow[j])).getImage();
-                g.drawImage(img, x, y, null);
+                g.drawImage(img, y, x, null);
                
             }
 

@@ -26,10 +26,19 @@ public class SnakeGame {
     public static void main(String[] args) throws IOException, InterruptedException {
 
        
-        Field field = new Field(15, 16);
-        int[][] fieldCells= field.getCells();
+        Field field = new Field(10, 15);
+       // int[][] fieldCells= field.getCells();
         
-        MainFrame mainFrame= new MainFrame(fieldCells); 
+        
+        
+        Snake snake = new Snake(3); 
+        snake.addOnField(field);
+        int [][]fieldCells= field.getCells();
+        field.printField();
+        MainFrame mainFrame= new MainFrame(fieldCells);
+     //   fieldCells= field.getCells();
+      //  mainFrame.reDrawField(fieldCells);
+        
         
        
      
