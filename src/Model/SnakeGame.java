@@ -19,8 +19,11 @@ import javax.swing.JFrame;
  */
 public class SnakeGame {
 
-    static int snakeLength;
-    static int frogCount;
+    /**
+     *поле для хранения длинны змеи и текущего счета. 
+     */
+    public static int snakeLength;
+    public static int frogCount;
 
     static boolean snakeAlive = true;
 
@@ -72,24 +75,7 @@ public class SnakeGame {
 
         GameProcess.startApp(snakeLength, frogCount);
 
-        /*Snake snake = new Snake(3);
-         snake.addOnField(field);
-         fieldCells = field.getCells();
-         field.printField();
-
-         Thread.sleep(1000);
-         mainFrame.gCells.setCells(fieldCells);
-
-         // 
-         Thread.sleep(1000);
-         snake.cleanTailOnField(field, snake.getSnakeCoordinates().get(0));
-         snake.moveDown();
        
-         snake.addOnField(field);
-        
-         field.printField();
-         fieldCells = field.getCells();
-         mainFrame.gCells.setCells(fieldCells);*/
     }
 
 }

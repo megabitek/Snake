@@ -5,27 +5,37 @@
  */
 package View;
 
+import Controller.GameProcess;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author admin
  */
-public class GraphicCells extends JPanel {
+public class GraphicCells extends JPanel implements ActionListener{
+Timer mainTimer = new Timer(1000, this);  
 int cells[][]; 
 Image img; 
 int x;
 int y; 
 GraphicCells(int cells[][]){
  this.cells = cells;  
+ mainTimer.start();
     
 
 }
+
+
     public void setCells(int[][] cells){
     this.cells=cells; 
     repaint();}
@@ -73,6 +83,15 @@ GraphicCells(int cells[][]){
             
         }
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    try {
+        GameProcess.gameCycle();
+    } catch (InterruptedException ex) {
+       ex.printStackTrace();
+    }
+}
 
    
 }

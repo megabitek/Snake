@@ -13,7 +13,9 @@ import java.util.ArrayList;
  */
 public class Snake extends FieldObject {
 
-    enum MoveDirections {
+    Field field;
+
+    public enum MoveDirections {
 
         LEFT, RIGHT, UP, DOWN
     };
@@ -24,11 +26,10 @@ public class Snake extends FieldObject {
 
     MoveDirections moveDirection;
 
-   // private int[] mainCoords;
-
+    // private int[] mainCoords;
     private ArrayList<int[]> snakeCoordinates;
 
-    Snake(int snakeLength) {
+    public Snake(int snakeLength, Field field) {
         //новая змея создается в правом верхнем углу
         snakeCoordinates = new ArrayList();
         for (int i = 0; i < snakeLength; i++) {
@@ -36,37 +37,35 @@ public class Snake extends FieldObject {
             snakeCoordinates.add(coors);
 
         }
+        this.field = field;
         mainCoords = snakeCoordinates.get((int) snakeLength - 1);
         moveDirection = MoveDirections.RIGHT;
+        addOnField(field);
     }
 
     @Override
     void addOnField(Field field) {
-         int[] snakeHeadCoords = getHeadCoords();
+        
+        field = this.field;
+        int[] snakeHeadCoords = getHeadCoords();
 //        if ((field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code)==1)
 //            field.snakeFindFrog(snakeHeadCoords);
-        
 
         for (int[] coords : getSnakeCoordinates()) {
             field.cells[coords[0]][coords[1]].setCode(Snake.CELL_CODE);
         }
-       
 
         field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code = Snake.CELL_CODE_HEAD;
         int[] tailCoords = getSnakeCoordinates().get(0);
         field.cells[tailCoords[0]][tailCoords[1]].code = Snake.CELL_CODE_TAIL;
 
     }
-    
-    
-
-    
 
     MoveDirections getMoveDirection() {
         return moveDirection;
     }
 
-    void setMoveDirection(MoveDirections moveDirection) {
+    public void setMoveDirection(MoveDirections moveDirection) {
         this.moveDirection = moveDirection;
     }
 
@@ -99,6 +98,7 @@ public class Snake extends FieldObject {
             return;
         }
         moveDirection = MoveDirections.UP;
+        addOnField(field);
     }
 
     ;
@@ -107,9 +107,9 @@ public class Snake extends FieldObject {
     void moveDown() {
         if (canMove(MoveDirections.DOWN)) {
             super.moveDown();
-          //  cleanTailOnField(field, snakeCoordinates.get(0));
+            //  cleanTailOnField(field, snakeCoordinates.get(0));
             snakeCoordinates.remove(0);
-            
+
             snakeCoordinates.add(mainCoords);
         } else {
 
@@ -117,19 +117,23 @@ public class Snake extends FieldObject {
             return;
         }
         moveDirection = MoveDirections.DOWN;
+
+        addOnField(field);
     }
-    
-  void   cleanTailOnField(Field field, int [] tailCoords){
-        field.cells[tailCoords[0]][tailCoords[1]].code = Cell.EMPTY_CELL_CODE; 
+
+    void cleanTailOnField() {
+        int [] tailCoords = snakeCoordinates.get(0); 
+        field = this.field;
+        field.cells[tailCoords[0]][tailCoords[1]].code = Cell.EMPTY_CELL_CODE;
     }
 
     @Override
     void moveLeft() {
         if (canMove(MoveDirections.LEFT)) {
             super.moveLeft();
-           // cleanCell(snakeCoordinates.get(0));
+            // cleanCell(snakeCoordinates.get(0));
             snakeCoordinates.remove(0);
-            
+
             snakeCoordinates.add(mainCoords);
         } else {
 
@@ -137,15 +141,18 @@ public class Snake extends FieldObject {
             return;
         }
         moveDirection = MoveDirections.LEFT;
+
+        addOnField(field);
     }
 
     @Override
     void moveRight() {
+        cleanTailOnField(); 
         if (canMove(MoveDirections.RIGHT)) {
             super.moveRight();
             //field.cleanCell(snakeCoordinates.get(0));
             snakeCoordinates.remove(0);
-            
+
             snakeCoordinates.add(mainCoords);
         } else {
 
@@ -153,26 +160,23 @@ public class Snake extends FieldObject {
             return;
         }
         moveDirection = MoveDirections.RIGHT;
+
+        addOnField(field);
     }
 
     void grow(int[] frogCoordinates) {
         this.mainCoords = frogCoordinates;
-
+        addOnField(field);
     }
 
     @Override
-     public void run(){
-      //  while (true){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-        makeMove();
-        addOnField(field);
-        
-        //System.out.println("snake makes move");}
+    public void run() {
 
+        /*  addOnField(field);
+         field.change=true;
+         makeMove; 
+         field.change=true; 
+         */
     }//}
 
     public void makeMove() {
@@ -186,9 +190,7 @@ public class Snake extends FieldObject {
             moveLeft();
         }
     }
-   
 
-    
     boolean canMove(MoveDirections moveDir) {
         return (!(moveDirection == MoveDirections.DOWN & moveDir == MoveDirections.UP) || (moveDirection == MoveDirections.UP & moveDir == MoveDirections.DOWN) || (moveDirection == MoveDirections.LEFT & moveDir == MoveDirections.RIGHT) || (moveDirection == MoveDirections.RIGHT & moveDir == MoveDirections.LEFT));
 

@@ -9,6 +9,10 @@ import Controller.GameProcess;
 import Model.Field;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -79,7 +83,7 @@ public class MainFrame extends JPanel {
                 //          GameProcess.class.gameBegin();
             }
         });
- JButton start = new JButton("Start");
+        JButton start = new JButton("Start");
         start.setLocation(420, 10);
         start.setSize(70, 40);
         mainFrame.add(start);
@@ -87,7 +91,11 @@ public class MainFrame extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //          GameProcess.class.gameBegin();
+//                try {
+//               //     GameProcess.gameCycle();
+//                } catch (InterruptedException ex) {
+//                    ex.printStackTrace();
+//                }
             }
         });
         JButton exit = new JButton("Exit");
@@ -107,6 +115,11 @@ public class MainFrame extends JPanel {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gCells = new GraphicCells(field);
         mainFrame.add(gCells);
+        mainFrame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent ev){
+            GameProcess.moveSnake(ev);} ;
+        });
         mainFrame.setVisible(true);
 
     }

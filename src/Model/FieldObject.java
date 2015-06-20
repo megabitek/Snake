@@ -50,8 +50,9 @@ public class FieldObject implements Runnable {
     }
 
     void moveRight() {
-        if  (checkOnWall(mainCoords)) return;
+       
         int[] newCoords = new int[]{mainCoords[0], mainCoords[1]+1};
+         if  (checkOnWall(newCoords)) return;
         this.mainCoords = newCoords;
     
     }

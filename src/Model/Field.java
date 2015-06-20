@@ -16,6 +16,7 @@ public class Field {
     public static int gorizontalSize;
     public static int verticalSize;
     Cell[][] cells;
+    boolean change; 
   //  public   Field field ;
     boolean findFrog;
     //   int[] frogCoords;
