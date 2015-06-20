@@ -26,7 +26,9 @@ GraphicCells(int cells[][]){
     
 
 }
-    
+    public void setCells(int[][] cells){
+    this.cells=cells; 
+    repaint();}
 
     @Override
     public void paint(Graphics g) {
@@ -70,4 +72,7 @@ GraphicCells(int cells[][]){
              }
             
         }
-    }}
+    }
+
+   
+}

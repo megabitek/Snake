@@ -13,7 +13,7 @@ public class FieldObject implements Runnable {
 
     Field field;
     Field Object;
-    private int[] mainCoords;
+    int[] mainCoords;
     static int CELL_CODE;
 
     void addOnField(Field field) {
@@ -34,6 +34,7 @@ public class FieldObject implements Runnable {
         if  (checkOnWall(mainCoords)) return;
         int[] newCoords = new int[]{mainCoords[0] - 1, mainCoords[1]};
         this.mainCoords = newCoords;
+       
     }
 
     void moveDown() {

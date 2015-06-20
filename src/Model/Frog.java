@@ -17,15 +17,12 @@ public class Frog extends FieldObject {
     public static int frogCount;
     final static int CELL_CODE = 1;
     private int[] mainCoords;
+    boolean died;
     
     Frog(int[] coords) {
         mainCoords = coords;
     }
-   boolean eatFrog(){
-       
- return ((field.findFrog)&&((mainCoords[0]==field.frogCoords[0])||(mainCoords[1]==field.frogCoords[1])));
- 
-   }
+   
 
 
     
@@ -44,6 +41,7 @@ public class Frog extends FieldObject {
         this.mainCoords = frogCoords;
     }
     
+    @Override
     void addOnField(Field field) {
         
         int[] frogCoords = getMainCoords();
@@ -75,8 +73,9 @@ public class Frog extends FieldObject {
 
     @Override
     public void run() {
-        if (eatFrog()) super.died();
-        deleteFromField(field);
+        if (died){
+        deleteFromField(field);  
+        return;}
         
         try {
             Thread.sleep(2000);

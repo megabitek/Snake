@@ -5,10 +5,12 @@
  */
 package View;
 
+import Controller.GameProcess;
 import Model.Field;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,24 +20,79 @@ import javax.swing.JPanel;
  * @author admin
  */
 public class MainFrame extends JPanel {
-int [][] field; 
-GraphicCells gCells; 
-JFrame mainFrame;
+
+    public int[][] field;
+
+    public GraphicCells gCells;
+    JFrame mainFrame;
     public static final int CELL_SIZE = 22;
 
     public MainFrame(int[][] cells) {
-        this.field = cells; 
+        this.field = cells;
         mainFrame = new JFrame("Java Snake");
-    //mainFrame.setLayout(null);
-        //  mainFrame.add(new MainFrame()); 
-        JButton GO = new JButton("Start");
-        GO.setLocation(400, 30);
-        GO.setSize(80, 40);
-        mainFrame.add(GO);
 
+        //mainFrame.setLayout(null);
+        //  mainFrame.add(new MainFrame()); 
+        JButton up = new JButton("up");
+        up.setLocation(50, 420);
+        up.setSize(50, 40);
+        mainFrame.add(up);
+        up.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //          GameProcess.class.gameBegin();
+            }
+        });
+        JButton down = new JButton("dw");
+        down.setLocation(120, 420);
+        down.setSize(50, 40);
+        mainFrame.add(down);
+        down.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //          GameProcess.class.gameBegin();
+            }
+        });
+
+        JButton left = new JButton("lf");
+        left.setLocation(190, 420);
+        left.setSize(50, 40);
+        mainFrame.add(left);
+        left.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //          GameProcess.class.gameBegin();
+            }
+        });
+
+        JButton right = new JButton("rg");
+        right.setLocation(260, 420);
+        right.setSize(70, 40);
+        mainFrame.add(right);
+        right.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //          GameProcess.class.gameBegin();
+            }
+        });
+ JButton start = new JButton("Start");
+        start.setLocation(420, 10);
+        start.setSize(70, 40);
+        mainFrame.add(start);
+        start.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //          GameProcess.class.gameBegin();
+            }
+        });
         JButton exit = new JButton("Exit");
-        exit.setLocation(400, 80);
-        exit.setSize(80, 40);
+        exit.setLocation(420, 80);
+        exit.setSize(70, 40);
         mainFrame.add(exit);
 
         exit.addActionListener(new ActionListener() {
@@ -50,40 +107,7 @@ JFrame mainFrame;
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gCells = new GraphicCells(field);
         mainFrame.add(gCells);
-
-  //  JPanel board = new JPanel();
-        //   mainFrame.setLayout(null);
-               // mainFrame.add(board);
-        // GraphicField gField = new GraphicField(cells); 
-//    mainFrame.add(gField); 
-        // mainFrame.add (gField.paint(null));mainFrame.setSize (500, 500);
-//    GraphicCell gCell = new GraphicCell(1, 30, 80);
-//     mainFrame.add(gCell); 
-//        JButton GO = new JButton("Start");
-//        GO.setLocation(400, 30);
-//        GO.setSize(80, 40);
-//        mainFrame.add(GO);
-        //GraphicField gField = new GraphicField(cells); 
-        //  mainFrame.add (gField.paint(null));
-        /*final JButton exit = new JButton("Exit");
-         exit.setLocation(400, 80);
-         exit.setSize(80, 40);
-         mainFrame.add(exit);
-  
-         exit.addActionListener(new ActionListener() {
- 
-         public void actionPerformed(ActionEvent event) {
-         JOptionPane.showMessageDialog(exit, "Goodbye!", "OK", JOptionPane.WARNING_MESSAGE);
-         System.exit(0);
-         }
-         });*/
         mainFrame.setVisible(true);
-    }
 
-    public void reDrawField(int[][] field) {
-       /* gField = mainFrame.r
-        mainFrame.remove(gField);*/
-               gCells = new GraphicCells(field);
-       mainFrame.add(gCells);
     }
 }

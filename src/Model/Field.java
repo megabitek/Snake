@@ -16,10 +16,11 @@ public class Field {
     public static int gorizontalSize;
     public static int verticalSize;
     Cell[][] cells;
+  //  public   Field field ;
     boolean findFrog;
-    int[] frogCoords;
+    //   int[] frogCoords;
 
-    Field(int gorizontalSize, int verticalSize) {
+    public Field(int gorizontalSize, int verticalSize) {
 
         cells = new Cell[gorizontalSize][verticalSize];
         for (int i = 0; i < gorizontalSize; i++) {
@@ -32,6 +33,9 @@ public class Field {
 
     }
 
+    void cleanCell(int[] cellCoords) {
+    }
+
     void deleteAll() {
         for (int i = 0; i < gorizontalSize; i++) {
             for (int j = 0; j < verticalSize; j++) {
@@ -40,9 +44,13 @@ public class Field {
         }
     }
 
-    void snakeFindFrog(int[] snakeHeadCoords) {
-        this.findFrog = true;
-        frogCoords = snakeHeadCoords;
+    void checkFrog(Snake snake, Frog frog) {
+        int[] frogCoords = frog.getMainCoords();
+        int[] snakeCoords = snake.getHeadCoords();
+        if ((frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1])) {
+            snake.grow(frogCoords);
+            frog.died = true;
+        }
     }
 
     /*поиск пустой ячейки для добавления лягушки */

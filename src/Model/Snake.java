@@ -24,7 +24,7 @@ public class Snake extends FieldObject {
 
     MoveDirections moveDirection;
 
-    private int[] mainCoords;
+   // private int[] mainCoords;
 
     private ArrayList<int[]> snakeCoordinates;
 
@@ -43,8 +43,9 @@ public class Snake extends FieldObject {
     @Override
     void addOnField(Field field) {
          int[] snakeHeadCoords = getHeadCoords();
-        if ((field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code)==1)
-            field.snakeFindFrog(snakeHeadCoords); 
+//        if ((field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code)==1)
+//            field.snakeFindFrog(snakeHeadCoords);
+        
 
         for (int[] coords : getSnakeCoordinates()) {
             field.cells[coords[0]][coords[1]].setCode(Snake.CELL_CODE);
@@ -56,6 +57,8 @@ public class Snake extends FieldObject {
         field.cells[tailCoords[0]][tailCoords[1]].code = Snake.CELL_CODE_TAIL;
 
     }
+    
+    
 
     
 
@@ -88,6 +91,7 @@ public class Snake extends FieldObject {
         if (canMove(MoveDirections.UP)) {
             super.moveUp();
             snakeCoordinates.remove(0);
+            //field.cleanCell(snakeCoordinates.get(0));
             snakeCoordinates.add(mainCoords);
         } else {
 
@@ -103,7 +107,9 @@ public class Snake extends FieldObject {
     void moveDown() {
         if (canMove(MoveDirections.DOWN)) {
             super.moveDown();
+          //  cleanTailOnField(field, snakeCoordinates.get(0));
             snakeCoordinates.remove(0);
+            
             snakeCoordinates.add(mainCoords);
         } else {
 
@@ -112,12 +118,18 @@ public class Snake extends FieldObject {
         }
         moveDirection = MoveDirections.DOWN;
     }
+    
+  void   cleanTailOnField(Field field, int [] tailCoords){
+        field.cells[tailCoords[0]][tailCoords[1]].code = Cell.EMPTY_CELL_CODE; 
+    }
 
     @Override
     void moveLeft() {
         if (canMove(MoveDirections.LEFT)) {
             super.moveLeft();
+           // cleanCell(snakeCoordinates.get(0));
             snakeCoordinates.remove(0);
+            
             snakeCoordinates.add(mainCoords);
         } else {
 
@@ -131,7 +143,9 @@ public class Snake extends FieldObject {
     void moveRight() {
         if (canMove(MoveDirections.RIGHT)) {
             super.moveRight();
+            //field.cleanCell(snakeCoordinates.get(0));
             snakeCoordinates.remove(0);
+            
             snakeCoordinates.add(mainCoords);
         } else {
 
