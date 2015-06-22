@@ -28,17 +28,16 @@ public class GameProcess {
         field = new Field(Field.gorizontalSize, Field.verticalSize);// сначала нарисовали пустое поле
         int[][] fieldCells = field.getCells();
         snake = new Snake(SnakeGame.snakeLength, field);
-        gameOn = true;
+         gameOn = true;
         mainFrame = new MainFrame(fieldCells);
         mainFrame.gCells.setCells(fieldCells);
-        
+
 //MainFrame  mainFrame=new MainFrame(Field.getCells());
     }
-   
 
     public static void gameCycle() throws InterruptedException {
         // Thread.sleep(3000);
-        System.out.println("змея двигается!");
+
         if (gameOn) {
             {
                 snake.makeMove();
@@ -49,9 +48,9 @@ public class GameProcess {
         }
     }
 
-    public static void moveSnake(KeyEvent ev) {
-
-        switch (ev.getKeyCode()) {
+    public static void turnSnake(KeyEvent e) {
+        System.out.println(e.getKeyCode() + " нажата клавиша");
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_RIGHT: {
                 snake.setMoveDirection(MoveDirections.RIGHT);
                 break;
@@ -68,18 +67,18 @@ public class GameProcess {
                 snake.setMoveDirection(MoveDirections.LEFT);
                 break;
             }
-
-        }
-        snake.makeMove();
-        int[][] fieldCells2 = field.getCells();
-        mainFrame.gCells.setCells(fieldCells2);
+        }}
+        
+//        snake.makeMove();
+        //    int[][] fieldCells2 = field.getCells();
+        //   mainFrame.gCells.setCells(fieldCells2);
         /*snake.makeMove();
          int [][] fieldCells2 =  field.getCells(); 
          
          */
-    }
-
-    void turnSnakeUp() {
+    
+    public static void turnGame() {
+        gameOn = true;
     }
 
     void turnSnakeDown() {

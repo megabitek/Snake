@@ -92,7 +92,8 @@ public class MainFrame extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                try {
-//               //     GameProcess.gameCycle();
+                   GameProcess.turnGame();
+                   
 //                } catch (InterruptedException ex) {
 //                    ex.printStackTrace();
 //                }
@@ -115,11 +116,22 @@ public class MainFrame extends JPanel {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gCells = new GraphicCells(field);
         mainFrame.add(gCells);
-        mainFrame.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent ev){
-            GameProcess.moveSnake(ev);} ;
+//        gCells.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyPressed(KeyEvent ev){
+//            GameProcess.moveSnake(ev);} ;
+//        });
+        
+        mainFrame.addKeyListener(new java.awt.event.KeyAdapter() {// водт видишь тут тоже есть адаптер и я его тоже сделала расширив этот класс в график целлс
+            
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                //formKeyPressed(evt);
+                System.out.println("frame Key pressed");
+            }
         });
+        
+        
+        //mainFrame.setFocusable(true);
         mainFrame.setVisible(true);
 
     }

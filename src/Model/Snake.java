@@ -87,6 +87,7 @@ public class Snake extends FieldObject {
 
     @Override
     void moveUp() {
+         cleanTailOnField(); 
         if (canMove(MoveDirections.UP)) {
             super.moveUp();
             snakeCoordinates.remove(0);
@@ -101,10 +102,11 @@ public class Snake extends FieldObject {
         addOnField(field);
     }
 
-    ;
+    
 
     @Override
     void moveDown() {
+         cleanTailOnField(); 
         if (canMove(MoveDirections.DOWN)) {
             super.moveDown();
             //  cleanTailOnField(field, snakeCoordinates.get(0));
@@ -129,6 +131,7 @@ public class Snake extends FieldObject {
 
     @Override
     void moveLeft() {
+         cleanTailOnField(); 
         if (canMove(MoveDirections.LEFT)) {
             super.moveLeft();
             // cleanCell(snakeCoordinates.get(0));
