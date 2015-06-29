@@ -6,15 +6,9 @@
 package View;
 
 import Controller.GameProcess;
-import Model.Field;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,54 +29,7 @@ public class MainFrame extends JPanel {
         this.field = cells;
         mainFrame = new JFrame("Java Snake");
 
-        //mainFrame.setLayout(null);
-        //  mainFrame.add(new MainFrame()); 
-        JButton up = new JButton("up");
-        up.setLocation(50, 420);
-        up.setSize(50, 40);
-        mainFrame.add(up);
-        up.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //          GameProcess.class.gameBegin();
-            }
-        });
-        JButton down = new JButton("dw");
-        down.setLocation(120, 420);
-        down.setSize(50, 40);
-        mainFrame.add(down);
-        down.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //          GameProcess.class.gameBegin();
-            }
-        });
-
-        JButton left = new JButton("lf");
-        left.setLocation(190, 420);
-        left.setSize(50, 40);
-        mainFrame.add(left);
-        left.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //          GameProcess.class.gameBegin();
-            }
-        });
-
-        JButton right = new JButton("rg");
-        right.setLocation(260, 420);
-        right.setSize(70, 40);
-        mainFrame.add(right);
-        right.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //          GameProcess.class.gameBegin();
-            }
-        });
+       
         JButton start = new JButton("Start");
         start.setLocation(420, 10);
         start.setSize(70, 40);
@@ -93,6 +40,7 @@ public class MainFrame extends JPanel {
             public void actionPerformed(ActionEvent e) {
 //                try {
                    GameProcess.turnGame();
+                   gCells.requestFocusInWindow();
                    
 //                } catch (InterruptedException ex) {
 //                    ex.printStackTrace();

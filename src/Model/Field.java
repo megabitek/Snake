@@ -13,15 +13,15 @@ import java.util.Random;
  */
 public class Field {
 
-    public static int gorizontalSize;
+   public static int gorizontalSize;
     public static int verticalSize;
     Cell[][] cells;
     boolean change; 
-  //  public   Field field ;
-    boolean findFrog;
-    //   int[] frogCoords;
+    public static  Field field;
+    public boolean findFrog;
+    int[] frogCoords;
 
-    public Field(int gorizontalSize, int verticalSize) {
+    private Field(int gorizontalSize, int verticalSize) {
 
         cells = new Cell[gorizontalSize][verticalSize];
         for (int i = 0; i < gorizontalSize; i++) {
@@ -33,9 +33,14 @@ public class Field {
         this.verticalSize = verticalSize;
 
     }
-
-    void cleanCell(int[] cellCoords) {
+    
+    public static Field getField(){
+    if (field == null)
+        field= new Field(gorizontalSize, verticalSize);
+    return field; 
     }
+
+    
 
     void deleteAll() {
         for (int i = 0; i < gorizontalSize; i++) {
@@ -45,14 +50,15 @@ public class Field {
         }
     }
 
-    void checkFrog(Snake snake, Frog frog) {
+    public boolean checkFrog(Snake snake, Frog frog) {
         int[] frogCoords = frog.getMainCoords();
+      System.out.println(frogCoords[0]+" "+frogCoords[1]);
+        
         int[] snakeCoords = snake.getHeadCoords();
-        if ((frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1])) {
-            snake.grow(frogCoords);
-            frog.died = true;
-        }
-    }
+        System.out.println(snakeCoords[0]+" "+snakeCoords[1]);
+        findFrog = (frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1]); 
+         System.out.println(findFrog);
+    return findFrog; }
 
     /*поиск пустой ячейки для добавления лягушки */
     int[] findRandomCell() {
@@ -68,6 +74,15 @@ public class Field {
         return randomCell;
 
     }
+    
+    boolean checkOnWall(int[] coords) {
+     
+        int vertSize =verticalSize;
+        int gorSize = gorizontalSize;
+
+        return (coords[0] >= vertSize || coords[0] < 0) || (coords[1] >= gorSize || coords[1] < 0);
+
+    }
 
     public int[][] getCells() {
         int[][] cellsArray = new int[gorizontalSize][verticalSize];
@@ -79,7 +94,7 @@ public class Field {
         return cellsArray;
     }
 
-    void printField() {
+    public void printField() {
         for (int i = 0; i < gorizontalSize; i++) {
             for (int j = 0; j < verticalSize; j++) {
                 if (cells[i][j].code == 0 && 1 == 1) {

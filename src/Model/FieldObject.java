@@ -11,8 +11,6 @@ package Model;
  */
 public class FieldObject implements Runnable {
 
-    Field field;
-    Field Object;
     int[] mainCoords;
     static int CELL_CODE;
 
@@ -20,9 +18,10 @@ public class FieldObject implements Runnable {
     }
 
     void deleteFromField(Field field) {
-        
+
     }
-   int[] getMainCoords() {
+
+    int[] getMainCoords() {
         return mainCoords;
     }
 
@@ -31,47 +30,63 @@ public class FieldObject implements Runnable {
     }
 
     void moveUp() {
-        if  (checkOnWall(mainCoords)) return;
+        Field field = Field.getField();
+        deleteFromField(field);
+
         int[] newCoords = new int[]{mainCoords[0] - 1, mainCoords[1]};
+//        if (checkOnWall(newCoords)) {
+//            return;
+//        }
         this.mainCoords = newCoords;
-       
+        //addOnField(field);
+
     }
 
     void moveDown() {
-        if  (checkOnWall(mainCoords)) return;
+
+        Field field = Field.getField();
+        deleteFromField(field);
         int[] newCoords = new int[]{mainCoords[0] + 1, mainCoords[1]};
+//        if (checkOnWall(newCoords)) {
+//            return;
+//        }
         this.mainCoords = newCoords;
+        //addOnField(field);
+
     }
 
     void moveLeft() {
-    if  (checkOnWall(mainCoords)) return;
-        int[] newCoords = new int[]{mainCoords[0], mainCoords[1]-1};
+        Field field = Field.getField();
+        deleteFromField(field);
+        int[] newCoords = new int[]{mainCoords[0], mainCoords[1] - 1};
+//        if (checkOnWall(newCoords)) {
+//            return;
+//        }
         this.mainCoords = newCoords;
+       // addOnField(field);
+
     }
 
     void moveRight() {
-       
-        int[] newCoords = new int[]{mainCoords[0], mainCoords[1]+1};
-         if  (checkOnWall(newCoords)) return;
+        Field field = Field.getField();
+        deleteFromField(field);
+        int[] newCoords = new int[]{mainCoords[0], mainCoords[1] + 1};
+//        if (checkOnWall(newCoords)) {
+//            return;
+//        }
         this.mainCoords = newCoords;
-    
-    }
-
-    boolean checkOnWall(int[] coords) {
-        int vertSize = field.verticalSize;
-        int gorSize = field.gorizontalSize;
-
-        return (coords[0] >= vertSize || coords[0] < 0) || (coords[1] >= gorSize || coords[1] < 0);
+        //addOnField(field);
 
     }
+
 
     @Override
     public void run() {
-        
-    }
-    public void died(){
-    //нужно остановить поток
+
     }
 
+    public void died() {
+        //нужно остановить поток
+    }
 
 }

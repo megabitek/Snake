@@ -6,7 +6,6 @@
 package View;
 
 import Controller.GameProcess;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -14,9 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -32,6 +28,7 @@ public class GraphicCells extends JPanel implements ActionListener {
     Image img;
     int x;
     int y;
+    int [] frog; 
 
     GraphicCells(int cells[][]) {
         this.cells = cells;
@@ -41,17 +38,20 @@ public class GraphicCells extends JPanel implements ActionListener {
 
     }
 
+    
     private class MyKeyAdapter extends KeyAdapter {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("graphic cells Key pressed");
+       //     System.out.println("graphic cells Key pressed");
             GameProcess.turnSnake(e);
         }
     }
 
     public void setCells(int[][] cells) {
         this.cells = cells;
+        
+        setFocusable(true);
         repaint();
     }
 

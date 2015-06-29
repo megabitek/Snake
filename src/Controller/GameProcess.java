@@ -6,11 +6,15 @@
 package Controller;
 
 import Model.Field;
+import Model.Frog;
 import Model.Snake;
 import Model.Snake.MoveDirections;
 import Model.SnakeGame;
 import View.MainFrame;
+import java.awt.List;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,17 +22,23 @@ import java.awt.event.KeyEvent;
  */
 public class GameProcess {
 
-    static Field field;
+   
     static MainFrame mainFrame;
     static Snake snake;
     static boolean gameOn;
+    static ArrayList<Frog> frogs= new ArrayList<Frog>();
+ ///   Thread frogFactory; 
 
     public static void startApp(int snakeLenght, int frogCount) {
 
-        field = new Field(Field.gorizontalSize, Field.verticalSize);// сначала нарисовали пустое поле
+        Field field = Field.getField();
         int[][] fieldCells = field.getCells();
         snake = new Snake(SnakeGame.snakeLength, field);
-         gameOn = true;
+        //frog = new Frog[SnakeGame.frogCount]; 
+        for (int i = 0; i < SnakeGame.frogCount; i++) {
+            frogs.add(new Frog(field));
+        }
+        //gameOn = true;
         mainFrame = new MainFrame(fieldCells);
         mainFrame.gCells.setCells(fieldCells);
 
@@ -39,14 +49,39 @@ public class GameProcess {
         // Thread.sleep(3000);
 
         if (gameOn) {
-            {
-                snake.makeMove();
+            System.out.println("game on: "+gameOn);
+            Field field = Field.getField(); 
+                
+                for (int i = 0; i < SnakeGame.frogCount; i++) {
+                frogs.get(i).makeMove();
+                // System.out.println;
+//                 if (!field.checkFrog(snake, frogs.get(i))) { 
+//                } else {
+//                     frogs.remove(i);
+//                     frogs.add(new Frog(field)); 
+//                }
+                  snake.makeMove();
+                   if (!field.checkFrog(snake, frogs.get(i))) { 
+                } else {
+                     frogs.remove(i);
+                     frogs.add(new Frog(field)); 
+                }
+                  if (snake.snakeDies) gameOn=false;
+                  System.out.println("snake dies "+snake.snakeDies);
+                  System.out.println("game on: "+gameOn);
+                }
+                
+                
+               
+                field.printField();
+                
+              
                 int[][] fieldCells2 = field.getCells();
                 mainFrame.gCells.setCells(fieldCells2);
             }
 
         }
-    }
+    
 
     public static void turnSnake(KeyEvent e) {
         System.out.println(e.getKeyCode() + " нажата клавиша");
@@ -67,26 +102,19 @@ public class GameProcess {
                 snake.setMoveDirection(MoveDirections.LEFT);
                 break;
             }
-        }}
-        
+        }
+    }
+
 //        snake.makeMove();
-        //    int[][] fieldCells2 = field.getCells();
-        //   mainFrame.gCells.setCells(fieldCells2);
+    //    int[][] fieldCells2 = field.getCells();
+    //   mainFrame.gCells.setCells(fieldCells2);
         /*snake.makeMove();
-         int [][] fieldCells2 =  field.getCells(); 
+     int [][] fieldCells2 =  field.getCells(); 
          
-         */
-    
+     */
     public static void turnGame() {
         gameOn = true;
     }
 
-    void turnSnakeDown() {
-    }
-
-    void turnSnakeLeft() {
-    }
-
-    void turnSnakeRight() {
-    }
+ 
 }

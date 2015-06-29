@@ -13,19 +13,18 @@ import java.util.Random;
  * @author admin
  */
 public class Frog extends FieldObject {
-    
+
     public static int frogCount;
     final static int CELL_CODE = 1;
-    private int[] mainCoords;
     boolean died;
-    
-    Frog(int[] coords) {
-        mainCoords = coords;
+
+    public Frog(Field field) {
+
+        mainCoords = field.findRandomCell();
+        addOnField(field);
+
     }
-   
 
-
-    
     @Override
     int[] getMainCoords() {
         return mainCoords;
@@ -33,55 +32,73 @@ public class Frog extends FieldObject {
 
     @Override
     void deleteFromField(Field field) {
+
         field.cells[mainCoords[0]][mainCoords[1]].setCode(Cell.EMPTY_CELL_CODE);
     }
-    
+
     @Override
     void setMainCoords(int[] frogCoords) {
         this.mainCoords = frogCoords;
     }
-    
+
     @Override
     void addOnField(Field field) {
-        
+
+        System.out.println(mainCoords[0] + mainCoords[1]);
         int[] frogCoords = getMainCoords();
-        
+
         field.cells[frogCoords[0]][frogCoords[1]].code = Frog.CELL_CODE;
-        
+
     }
-    
+
     @Override
     void moveUp() {
+
+        System.out.println("frog move up");
         super.moveUp();
+
     }
-    
+
     ;
     @Override
     void moveDown() {
+
+        System.out.println("frog move down");
+
         super.moveDown();
+
     }
-    
+
     @Override
     void moveRight() {
+
+        System.out.println("frog move right");
+
         super.moveRight();
+
     }
-    
+
     @Override
     void moveLeft() {
+        System.out.println("frog move left");
+
         super.moveLeft();
+
     }
 
     @Override
     public void run() {
-        if (died){
-        deleteFromField(field);  
-        return;}
-        
+        if (died) {
+            // deleteFromField(field);
+            return;
+        }
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
+
         int dir = findDirection();
         switch (dir) {
             case 0: {
@@ -100,18 +117,54 @@ public class Frog extends FieldObject {
                 moveUp();
                 break;
             }
-            
+
         }
+        //      addOnField(field);
+
+    }
+
+    public void makeMove() {
+
+      //  System.out.println("1: " + mainCoords[0] + "  " + mainCoords[1]);
+        Field field = Field.getField();
+       
+       // System.out.println("2: " + mainCoords[0] + "  " + mainCoords[1]);
+        while (field.cells[mainCoords[0]][mainCoords[1]].code != Cell.EMPTY_CELL_CODE) {
+            int[] oldCoords = mainCoords;
+
+            int dir = findDirection();
+            switch (dir) {
+                case 0: {
+                    moveDown();
+                    break;
+                }
+                case 1: {
+                    moveLeft();
+                    break;
+                }
+                case 2: {
+                    moveRight();
+                    break;
+                }
+                case 3: {
+                    moveUp();
+                    break;
+                }
+
+            }
+             if (field.checkOnWall(mainCoords)) {
+            this.mainCoords = oldCoords;
+
+        };
+        //    System.out.println("3: " + mainCoords[0] + "  " + mainCoords[1]);
+        }
+
         addOnField(field);
-      
     }
 //field.addFrog(frog);
 
-
-
-int findDirection() {
+    int findDirection() {
         Random rand = new Random();
         return rand.nextInt(3);
     }
-    } 
-
+}

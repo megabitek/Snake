@@ -6,14 +6,13 @@
 package Model;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author admin
  */
 public class Snake extends FieldObject {
-
-    Field field;
 
     public enum MoveDirections {
 
@@ -25,7 +24,7 @@ public class Snake extends FieldObject {
     final static int CELL_CODE_HEAD = 2;
 
     MoveDirections moveDirection;
-
+    public boolean snakeDies; 
     // private int[] mainCoords;
     private ArrayList<int[]> snakeCoordinates;
 
@@ -37,23 +36,28 @@ public class Snake extends FieldObject {
             snakeCoordinates.add(coors);
 
         }
-        this.field = field;
+
         mainCoords = snakeCoordinates.get((int) snakeLength - 1);
         moveDirection = MoveDirections.RIGHT;
         addOnField(field);
     }
 
     @Override
-    void addOnField(Field field) {
-        
-        field = this.field;
-        int[] snakeHeadCoords = getHeadCoords();
-//        if ((field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code)==1)
-//            field.snakeFindFrog(snakeHeadCoords);
+    public void deleteFromField(Field field) {
+        int[] tailCoords = snakeCoordinates.get(0);
 
-        for (int[] coords : getSnakeCoordinates()) {
-            field.cells[coords[0]][coords[1]].setCode(Snake.CELL_CODE);
-        }
+        field.cells[tailCoords[0]][tailCoords[1]].code = Cell.EMPTY_CELL_CODE;
+    }
+
+    @Override
+    void addOnField(Field field) {
+
+        int[] snakeHeadCoords = getHeadCoords();
+        
+            for (int[] coords : getSnakeCoordinates()) {
+                field.cells[coords[0]][coords[1]].setCode(Snake.CELL_CODE);
+            }
+        
 
         field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code = Snake.CELL_CODE_HEAD;
         int[] tailCoords = getSnakeCoordinates().get(0);
@@ -66,7 +70,9 @@ public class Snake extends FieldObject {
     }
 
     public void setMoveDirection(MoveDirections moveDirection) {
-        this.moveDirection = moveDirection;
+        if (checkDir(moveDirection)) {
+            this.moveDirection = moveDirection;
+        }
     }
 
     void setHeadCoords(int[] coords) {
@@ -87,89 +93,97 @@ public class Snake extends FieldObject {
 
     @Override
     void moveUp() {
-         cleanTailOnField(); 
-        if (canMove(MoveDirections.UP)) {
-            super.moveUp();
-            snakeCoordinates.remove(0);
-            //field.cleanCell(snakeCoordinates.get(0));
-            snakeCoordinates.add(mainCoords);
-        } else {
+        /* Field field = Field.getField();
+         // cleanTailOnField();
+         if (canMove(MoveDirections.UP)) {
+         */ super.moveUp();/*
+         if (!field.findFrog) {
+         snakeCoordinates.remove(0);
+         }
+         field.findFrog = false;
 
-            System.out.println("can't go up!");
-            return;
-        }
-        moveDirection = MoveDirections.UP;
-        addOnField(field);
+         snakeCoordinates.add(mainCoords);
+         moveDirection = MoveDirections.UP;
+         } else {
+
+         System.out.println("can't go up!");
+         return;
+         }
+
+         //  addOnField(field*/
+
     }
-
-    
 
     @Override
     void moveDown() {
-         cleanTailOnField(); 
-        if (canMove(MoveDirections.DOWN)) {
-            super.moveDown();
-            //  cleanTailOnField(field, snakeCoordinates.get(0));
-            snakeCoordinates.remove(0);
+        /*  Field field = Field.getField();
+         //  cleanTailOnField();
+         if (canMove(MoveDirections.DOWN)) {*/
+        super.moveDown();/*
+         if (!field.findFrog) {
+         snakeCoordinates.remove(0);
+         }
+         field.findFrog = false;
 
-            snakeCoordinates.add(mainCoords);
-        } else {
+         snakeCoordinates.add(mainCoords);
+         moveDirection = MoveDirections.DOWN;
+         } else {
 
-            System.out.println("can't go down!");
-            return;
-        }
-        moveDirection = MoveDirections.DOWN;
+         System.out.println("can't go down!");
+         return;
+         }
 
-        addOnField(field);
+         //    addOnField(field);*/
+
     }
 
     void cleanTailOnField() {
-        int [] tailCoords = snakeCoordinates.get(0); 
-        field = this.field;
-        field.cells[tailCoords[0]][tailCoords[1]].code = Cell.EMPTY_CELL_CODE;
+
     }
 
     @Override
     void moveLeft() {
-         cleanTailOnField(); 
-        if (canMove(MoveDirections.LEFT)) {
-            super.moveLeft();
-            // cleanCell(snakeCoordinates.get(0));
-            snakeCoordinates.remove(0);
+     //   Field field = Field.getField();
+        //   cleanTailOnField();
+        // if (canMove(MoveDirections.LEFT)) {
+        super.moveLeft();
+         //   if (!field.findFrog) {
+        //     snakeCoordinates.remove(0);
+        //}
+        //field.findFrog = false;
+        // cleanCell(snakeCoordinates.get(0));
 
-            snakeCoordinates.add(mainCoords);
-        } else {
+            //snakeCoordinates.add(mainCoords);
+        //moveDirection = MoveDirections.LEFT;
+        /*} else {
 
-            System.out.println("can't go down!");
-            return;
-        }
-        moveDirection = MoveDirections.LEFT;
+         System.out.println("can't go down!");
+         return;
+         }
 
-        addOnField(field);
+         /// addOnField(field);*/
     }
 
     @Override
     void moveRight() {
-        cleanTailOnField(); 
-        if (canMove(MoveDirections.RIGHT)) {
-            super.moveRight();
+        //Field field = Field.getField();
+        //  cleanTailOnField();
+        // if (canMove(MoveDirections.RIGHT)) {
+        super.moveRight();
             //field.cleanCell(snakeCoordinates.get(0));
-            snakeCoordinates.remove(0);
+        //   if (!field.findFrog) {
+        // snakeCoordinates.remove(0);
+        // }
+            /*field.findFrog = false;
 
-            snakeCoordinates.add(mainCoords);
-        } else {
+         snakeCoordinates.add(mainCoords);
+         moveDirection = MoveDirections.RIGHT;
+         } else {
 
-            System.out.println("can't go down!");
-            return;
-        }
-        moveDirection = MoveDirections.RIGHT;
+         System.out.println("can't go down!");
+         return;
+         }*/
 
-        addOnField(field);
-    }
-
-    void grow(int[] frogCoordinates) {
-        this.mainCoords = frogCoordinates;
-        addOnField(field);
     }
 
     @Override
@@ -183,6 +197,8 @@ public class Snake extends FieldObject {
     }//}
 
     public void makeMove() {
+        
+        Field field = Field.getField();
         if (moveDirection == MoveDirections.DOWN) {
             moveDown();
         } else if (moveDirection == MoveDirections.UP) {
@@ -192,10 +208,36 @@ public class Snake extends FieldObject {
         } else if (moveDirection == MoveDirections.LEFT) {
             moveLeft();
         }
+        if (field.checkOnWall(mainCoords) ){
+            snakeDies=true; 
+            System.out.println("Snake dies");
+            return;}
+        snakeCoordinates.add(mainCoords);
+        if (!field.findFrog) 
+        snakeCoordinates.remove(0);
+       // else 
+         //   JOptionPane.showMessageDialog(null, "snake eat frog");
+     
+        addOnField(field);
+        field.findFrog=false; 
+
     }
 
-    boolean canMove(MoveDirections moveDir) {
-        return (!(moveDirection == MoveDirections.DOWN & moveDir == MoveDirections.UP) || (moveDirection == MoveDirections.UP & moveDir == MoveDirections.DOWN) || (moveDirection == MoveDirections.LEFT & moveDir == MoveDirections.RIGHT) || (moveDirection == MoveDirections.RIGHT & moveDir == MoveDirections.LEFT));
+    boolean checkDir(MoveDirections moveDir) {
+        if (moveDirection == MoveDirections.DOWN & moveDir == MoveDirections.UP) {
+            return false;
+        }
+        if (moveDirection == MoveDirections.UP & moveDir == MoveDirections.DOWN) {
+            return false;
+        }
+        if (moveDirection == MoveDirections.LEFT & moveDir == MoveDirections.RIGHT) {
+            return false;
+        }
+        if (moveDirection == MoveDirections.RIGHT & moveDir == MoveDirections.LEFT) {
+            return false;
+        }
+        return true;
 
     }
+
 }
