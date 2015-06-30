@@ -24,7 +24,7 @@ public class Snake extends FieldObject {
     final static int CELL_CODE_HEAD = 2;
 
     MoveDirections moveDirection;
-    public boolean snakeDies; 
+    public boolean snakeDies;
     // private int[] mainCoords;
     private ArrayList<int[]> snakeCoordinates;
 
@@ -53,11 +53,10 @@ public class Snake extends FieldObject {
     void addOnField(Field field) {
 
         int[] snakeHeadCoords = getHeadCoords();
-        
-            for (int[] coords : getSnakeCoordinates()) {
-                field.cells[coords[0]][coords[1]].setCode(Snake.CELL_CODE);
-            }
-        
+
+        for (int[] coords : getSnakeCoordinates()) {
+            field.cells[coords[0]][coords[1]].setCode(Snake.CELL_CODE);
+        }
 
         field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code = Snake.CELL_CODE_HEAD;
         int[] tailCoords = getSnakeCoordinates().get(0);
@@ -143,7 +142,7 @@ public class Snake extends FieldObject {
 
     @Override
     void moveLeft() {
-     //   Field field = Field.getField();
+        //   Field field = Field.getField();
         //   cleanTailOnField();
         // if (canMove(MoveDirections.LEFT)) {
         super.moveLeft();
@@ -153,7 +152,7 @@ public class Snake extends FieldObject {
         //field.findFrog = false;
         // cleanCell(snakeCoordinates.get(0));
 
-            //snakeCoordinates.add(mainCoords);
+        //snakeCoordinates.add(mainCoords);
         //moveDirection = MoveDirections.LEFT;
         /*} else {
 
@@ -170,7 +169,7 @@ public class Snake extends FieldObject {
         //  cleanTailOnField();
         // if (canMove(MoveDirections.RIGHT)) {
         super.moveRight();
-            //field.cleanCell(snakeCoordinates.get(0));
+        //field.cleanCell(snakeCoordinates.get(0));
         //   if (!field.findFrog) {
         // snakeCoordinates.remove(0);
         // }
@@ -197,7 +196,7 @@ public class Snake extends FieldObject {
     }//}
 
     public void makeMove() {
-        
+
         Field field = Field.getField();
         if (moveDirection == MoveDirections.DOWN) {
             moveDown();
@@ -208,19 +207,22 @@ public class Snake extends FieldObject {
         } else if (moveDirection == MoveDirections.LEFT) {
             moveLeft();
         }
-        if (field.checkOnWall(mainCoords) ){
-            snakeDies=true; 
+        if (field.checkOnWall(mainCoords)) {
+            snakeDies = true;
             System.out.println("Snake dies");
-            return;}
+            return;
+        }
         snakeCoordinates.add(mainCoords);
-        if (!field.findFrog) 
-        snakeCoordinates.remove(0);
-       // else 
-         //   JOptionPane.showMessageDialog(null, "snake eat frog");
-     
+        if (!field.findFrog) {
+            snakeCoordinates.remove(0);
+        }
         addOnField(field);
-        field.findFrog=false; 
+        field.findFrog = false;
 
+    }
+
+    public int getLength() {
+        return snakeCoordinates.size();
     }
 
     boolean checkDir(MoveDirections moveDir) {

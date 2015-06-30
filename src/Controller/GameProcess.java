@@ -11,10 +11,8 @@ import Model.Snake;
 import Model.Snake.MoveDirections;
 import Model.SnakeGame;
 import View.MainFrame;
-import java.awt.List;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,7 +22,7 @@ public class GameProcess {
 
    
     static MainFrame mainFrame;
-    static Snake snake;
+    public static Snake snake;
     static boolean gameOn;
     static ArrayList<Frog> frogs= new ArrayList<Frog>();
  ///   Thread frogFactory; 
@@ -65,6 +63,7 @@ public class GameProcess {
                 } else {
                      frogs.remove(i);
                      frogs.add(new Frog(field)); 
+                     
                 }
                   if (snake.snakeDies) gameOn=false;
                   System.out.println("snake dies "+snake.snakeDies);
@@ -74,9 +73,10 @@ public class GameProcess {
                 
                
                 field.printField();
-                
+                int count = snake.getLength();
               
                 int[][] fieldCells2 = field.getCells();
+                mainFrame.gCells.setCount(count);
                 mainFrame.gCells.setCells(fieldCells2);
             }
 

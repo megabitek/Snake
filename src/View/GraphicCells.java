@@ -6,6 +6,8 @@
 package View;
 
 import Controller.GameProcess;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -28,7 +30,8 @@ public class GraphicCells extends JPanel implements ActionListener {
     Image img;
     int x;
     int y;
-    int [] frog; 
+    int count;
+    //int [] frog; 
 
     GraphicCells(int cells[][]) {
         this.cells = cells;
@@ -38,27 +41,30 @@ public class GraphicCells extends JPanel implements ActionListener {
 
     }
 
-    
     private class MyKeyAdapter extends KeyAdapter {
 
         @Override
         public void keyPressed(KeyEvent e) {
-       //     System.out.println("graphic cells Key pressed");
+            //     System.out.println("graphic cells Key pressed");
             GameProcess.turnSnake(e);
         }
     }
 
     public void setCells(int[][] cells) {
         this.cells = cells;
-        
-        setFocusable(true);
-        repaint();
+
+       repaint();
+    }
+    
+    public void setCount (int count ){
+    this.count= count; 
+   // repaint();
     }
 
     @Override
     public void paint(Graphics g) {
+       
         g = (Graphics2D) g;
-
         for (int i = 0; i < cells.length; i++) {
             int[] arrayRow = cells[i];
             x = (i * MainFrame.CELL_SIZE) + 7;
@@ -71,7 +77,14 @@ public class GraphicCells extends JPanel implements ActionListener {
             }
 
         }
-
+       
+        g.setColor(Color.red);
+        Font f = new Font("Arial",Font.BOLD, 25 );
+        g.setFont(f);        
+         g.clearRect(50, 300, 500, 500);
+        g.drawString("Game's count: " +count, 50 , 400);
+       
+        
     }
 
     final String findImage(int cellCode) {

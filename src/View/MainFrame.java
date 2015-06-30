@@ -42,6 +42,8 @@ public class MainFrame extends JPanel {
                    GameProcess.turnGame();
                    gCells.requestFocusInWindow();
                    
+                   
+                   
 //                } catch (InterruptedException ex) {
 //                    ex.printStackTrace();
 //                }
@@ -61,25 +63,11 @@ public class MainFrame extends JPanel {
         });
 
         mainFrame.setSize(500, 500);
+        mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gCells = new GraphicCells(field);
         mainFrame.add(gCells);
-//        gCells.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent ev){
-//            GameProcess.moveSnake(ev);} ;
-//        });
-        
-        mainFrame.addKeyListener(new java.awt.event.KeyAdapter() {// водт видишь тут тоже есть адаптер и я его тоже сделала расширив этот класс в график целлс
-            
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                //formKeyPressed(evt);
-                System.out.println("frame Key pressed");
-            }
-        });
-        
-        
-        //mainFrame.setFocusable(true);
+
         mainFrame.setVisible(true);
 
     }
