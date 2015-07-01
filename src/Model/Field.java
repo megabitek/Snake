@@ -13,13 +13,13 @@ import java.util.Random;
  */
 public class Field {
 
-   public static int gorizontalSize;
+    public static int gorizontalSize;
     public static int verticalSize;
     Cell[][] cells;
-    boolean change; 
-    public static  Field field;
+    boolean change;
+    public static Field field;
     public boolean findFrog;
-    int[] frogCoords;
+    // int[] frogCoords;
 
     private Field(int gorizontalSize, int verticalSize) {
 
@@ -33,14 +33,13 @@ public class Field {
         this.verticalSize = verticalSize;
 
     }
-    
-    public static Field getField(){
-    if (field == null)
-        field= new Field(gorizontalSize, verticalSize);
-    return field; 
-    }
 
-    
+    public static Field getField() {
+        if (field == null) {
+            field = new Field(gorizontalSize, verticalSize);
+        }
+        return field;
+    }
 
     void deleteAll() {
         for (int i = 0; i < gorizontalSize; i++) {
@@ -50,15 +49,17 @@ public class Field {
         }
     }
 
-    public boolean checkFrog(Snake snake, Frog frog) {
+    public boolean checkField(Snake snake, Frog frog) {
         int[] frogCoords = frog.getMainCoords();
-      System.out.println(frogCoords[0]+" "+frogCoords[1]);
-        
         int[] snakeCoords = snake.getHeadCoords();
-        System.out.println(snakeCoords[0]+" "+snakeCoords[1]);
-        findFrog = (frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1]); 
-         System.out.println(findFrog);
-    return findFrog; }
+        if ((field.cells[snakeCoords[0]][snakeCoords[1]].code == Snake.CELL_CODE_TAIL)
+                || (field.cells[snakeCoords[0]][snakeCoords[1]].code == Snake.CELL_CODE)) {
+            snake.snakeDies = true;
+        }
+        findFrog = (frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1]);
+
+        return findFrog;
+    }
 
     /*поиск пустой ячейки для добавления лягушки */
     int[] findRandomCell() {
@@ -74,10 +75,10 @@ public class Field {
         return randomCell;
 
     }
-    
+
     boolean checkOnWall(int[] coords) {
-     
-        int vertSize =verticalSize;
+
+        int vertSize = verticalSize;
         int gorSize = gorizontalSize;
 
         return (coords[0] >= vertSize || coords[0] < 0) || (coords[1] >= gorSize || coords[1] < 0);

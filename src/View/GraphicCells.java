@@ -6,6 +6,7 @@
 package View;
 
 import Controller.GameProcess;
+import static Controller.GameProcess.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -25,34 +26,28 @@ import javax.swing.Timer;
  */
 public class GraphicCells extends JPanel implements ActionListener {
 
-    Timer mainTimer = new Timer(1000, this);
+   Timer mainTimer = new Timer(1000, this);
     int cells[][];
     Image img;
-    int x;
+    int x; 
     int y;
     int count;
     //int [] frog; 
 
     GraphicCells(int cells[][]) {
         this.cells = cells;
-        this.addKeyListener(new MyKeyAdapter());
-        mainTimer.start();
+      
+       mainTimer.start();
         setFocusable(true);
 
     }
 
-    private class MyKeyAdapter extends KeyAdapter {
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            //     System.out.println("graphic cells Key pressed");
-            GameProcess.turnSnake(e);
-        }
-    }
+  
 
     public void setCells(int[][] cells) {
         this.cells = cells;
-
+addKeyListener(new MyKeyAdapter());
+mainTimer.start();
        repaint();
     }
     
@@ -67,10 +62,10 @@ public class GraphicCells extends JPanel implements ActionListener {
         g = (Graphics2D) g;
         for (int i = 0; i < cells.length; i++) {
             int[] arrayRow = cells[i];
-            x = (i * MainFrame.CELL_SIZE) + 7;
+            x = (i * View.CELL_SIZE) + 7;
 
             for (int j = 0; j < arrayRow.length; j++) {
-                y = (j * MainFrame.CELL_SIZE) + 5;
+                y = (j * View.CELL_SIZE) + 5;
                 img = new ImageIcon(findImage(arrayRow[j])).getImage();
                 g.drawImage(img, y, x, null);
 
@@ -110,16 +105,27 @@ public class GraphicCells extends JPanel implements ActionListener {
             }
 
         }
+                
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+     public void actionPerformed(ActionEvent e) {
         try {
-            setFocusable(true);
+            //setFocusable(true);
             GameProcess.gameCycle();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
     }
+
+ private static class MyKeyAdapter extends KeyAdapter {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            //     System.out.println("graphic cells Key pressed");
+            GameProcess.turnSnake(e);
+        }
+    }
+    
 
 }

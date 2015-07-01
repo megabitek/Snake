@@ -17,49 +17,37 @@ import javax.swing.JPanel;
  *
  * @author admin
  */
-public class MainFrame extends JPanel {
+public class View extends JPanel {
 
     public int[][] field;
 
     public GraphicCells gCells;
-    JFrame mainFrame;
+    public JButton start;
+    public JButton exit;
     public static final int CELL_SIZE = 22;
 
-    public MainFrame(int[][] cells) {
+    public View(int[][] cells) {
         this.field = cells;
-        mainFrame = new JFrame("Java Snake");
+        JFrame mainFrame = new JFrame("Java Snake");
 
-       
-        JButton start = new JButton("Start");
+        start = new JButton("Start");
         start.setLocation(420, 10);
         start.setSize(70, 40);
         mainFrame.add(start);
-        start.addActionListener(new ActionListener() {
+        start.addActionListener((ActionEvent e) -> {
+            //                try {
+            GameProcess.turnGame();
+            gCells.requestFocusInWindow();
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//                try {
-                   GameProcess.turnGame();
-                   gCells.requestFocusInWindow();
-                   
-                   
-                   
-//                } catch (InterruptedException ex) {
-//                    ex.printStackTrace();
-//                }
-            }
         });
-        JButton exit = new JButton("Exit");
+
+        exit = new JButton("Exit");
         exit.setLocation(420, 80);
         exit.setSize(70, 40);
         mainFrame.add(exit);
-
-        exit.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent event) {
-                JOptionPane.showMessageDialog(exit, "Goodbye!", "OK", JOptionPane.WARNING_MESSAGE);
-                System.exit(0);
-            }
+        exit.addActionListener((ActionEvent event) -> {
+            JOptionPane.showMessageDialog(exit, "Goodbye!", "OK", JOptionPane.WARNING_MESSAGE);
+            System.exit(0);
         });
 
         mainFrame.setSize(500, 500);

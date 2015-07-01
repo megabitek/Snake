@@ -7,7 +7,7 @@ package Model;
 
 import Controller.GameProcess;
 import View.GraphicCells;
-import View.MainFrame;
+import View.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
