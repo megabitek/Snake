@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.GameProcess;
+import Controller.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -36,7 +36,7 @@ public class View extends JPanel {
         mainFrame.add(start);
         start.addActionListener((ActionEvent e) -> {
             //                try {
-            GameProcess.turnGame();
+            Controller.turnGame();
             gCells.requestFocusInWindow();
 
         });

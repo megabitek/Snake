@@ -24,10 +24,11 @@ import javax.swing.Timer;
  *
  * @author admin
  */
-public class GameProcess {
+public class Controller {
 
     static View mainFrame;
-    public static Snake snake;
+    public static Snake snake; 
+    public static Thread thrSnake;
     static boolean gameOn;
     static ArrayList<Frog> frogs = new ArrayList<Frog>();
     ///   Thread frogFactory; 
@@ -36,8 +37,11 @@ public class GameProcess {
 
         Field field = Field.getField();
         int[][] fieldCells = field.getCells();
+        
         snake = new Snake(SnakeGame.snakeLength, field);
-
+        thrSnake = new Thread(snake);
+        
+        
         for (int i = 0; i < SnakeGame.frogCount; i++) {
             frogs.add(new Frog(field));
         }
@@ -52,10 +56,13 @@ public class GameProcess {
     public static void gameCycle() throws InterruptedException {
 
         if (gameOn) {
+            
 
             Field field = Field.getField();
+            
+            
 
-            for (int i = 0; i < SnakeGame.frogCount; i++) {
+            /*for (int i = 0; i < SnakeGame.frogCount; i++) {
                 frogs.get(i).makeMove();
 
                 snake.makeMove();
@@ -72,13 +79,13 @@ public class GameProcess {
 
                 }
 
-            }
+            }*/
 
             field.printField();
-            int count = snake.getLength();
+           int count = snake.getLength();
 
             int[][] fieldCells2 = field.getCells();
-            mainFrame.gCells.setCount(count);
+           mainFrame.gCells.setCount(count);
             mainFrame.gCells.setCells(fieldCells2);
         }
 
@@ -114,6 +121,7 @@ public class GameProcess {
          
      */
     public static void turnGame() {
+        thrSnake.start();
         gameOn = true;
     }
 

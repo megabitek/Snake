@@ -5,7 +5,7 @@
  */
 package Model;
 
-import Controller.GameProcess;
+import Controller.Controller;
 import View.GraphicCells;
 import View.View;
 import java.io.BufferedReader;
@@ -73,7 +73,7 @@ public class SnakeGame {
 
         }
 
-        GameProcess.startApp(snakeLength, frogCount);
+        Controller.startApp(snakeLength, frogCount);
 
        
     }

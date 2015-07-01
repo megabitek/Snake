@@ -5,8 +5,8 @@
  */
 package View;
 
-import Controller.GameProcess;
-import static Controller.GameProcess.*;
+import Controller.Controller;
+import static Controller.Controller.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -112,7 +112,7 @@ mainTimer.start();
      public void actionPerformed(ActionEvent e) {
         try {
             //setFocusable(true);
-            GameProcess.gameCycle();
+            Controller.gameCycle();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
@@ -123,7 +123,7 @@ mainTimer.start();
         @Override
         public void keyPressed(KeyEvent e) {
             //     System.out.println("graphic cells Key pressed");
-            GameProcess.turnSnake(e);
+            Controller.turnSnake(e);
         }
     }
     

@@ -34,7 +34,7 @@ public class Field {
 
     }
 
-    public static Field getField() {
+    public static synchronized Field getField() {
         if (field == null) {
             field = new Field(gorizontalSize, verticalSize);
         }

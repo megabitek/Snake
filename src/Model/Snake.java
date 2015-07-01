@@ -6,13 +6,14 @@
 package Model;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author admin
  */
-public class Snake extends FieldObject {
+public class Snake extends FieldObject implements Runnable {
 
     public enum MoveDirections {
 
@@ -187,13 +188,13 @@ public class Snake extends FieldObject {
 
     @Override
     public void run() {
-
-        /*  addOnField(field);
-         field.change=true;
-         makeMove; 
-         field.change=true; 
-         */
-    }//}
+        while (!snakeDies){
+        try {
+            Thread.sleep(1000);
+            makeMove();
+        } catch (InterruptedException ex) {
+        }
+        }}
 
     public void makeMove() {
 
