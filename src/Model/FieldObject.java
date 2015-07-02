@@ -12,6 +12,8 @@ package Model;
 public class FieldObject implements Runnable {
 
     int[] mainCoords;
+    int delay; 
+    public boolean dies; 
     static int CELL_CODE;
 
     void addOnField(Field field) {
@@ -59,11 +61,8 @@ public class FieldObject implements Runnable {
         Field field = Field.getField();
         deleteFromField(field);
         int[] newCoords = new int[]{mainCoords[0], mainCoords[1] - 1};
-//        if (checkOnWall(newCoords)) {
-//            return;
-//        }
+
         this.mainCoords = newCoords;
-       // addOnField(field);
 
     }
 
@@ -71,22 +70,23 @@ public class FieldObject implements Runnable {
         Field field = Field.getField();
         deleteFromField(field);
         int[] newCoords = new int[]{mainCoords[0], mainCoords[1] + 1};
-//        if (checkOnWall(newCoords)) {
-//            return;
-//        }
+
         this.mainCoords = newCoords;
-        //addOnField(field);
-
     }
-
+     void makeMove(){}; 
 
     @Override
     public void run() {
+         while (!dies){
+        try {
+            Thread.sleep(delay);
+            makeMove(); 
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }}
 
     }
 
-    public void died() {
-        //нужно остановить поток
-    }
+    
 
 }

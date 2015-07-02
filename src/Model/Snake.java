@@ -23,9 +23,9 @@ public class Snake extends FieldObject implements Runnable {
     final static int CELL_CODE_TAIL = 4;
     final static int CELL_CODE = 3;
     final static int CELL_CODE_HEAD = 2;
-
+  
     MoveDirections moveDirection;
-    public boolean snakeDies;
+    //public boolean dies;
     // private int[] mainCoords;
     private ArrayList<int[]> snakeCoordinates;
 
@@ -35,7 +35,7 @@ public class Snake extends FieldObject implements Runnable {
         for (int i = 0; i < snakeLength; i++) {
             int[] coors = new int[]{0, i};
             snakeCoordinates.add(coors);
-
+            delay = 1000; 
         }
 
         mainCoords = snakeCoordinates.get((int) snakeLength - 1);
@@ -188,14 +188,9 @@ public class Snake extends FieldObject implements Runnable {
 
     @Override
     public void run() {
-        while (!snakeDies){
-        try {
-            Thread.sleep(1000);
-            makeMove();
-        } catch (InterruptedException ex) {
-        }
-        }}
+        super.run();}
 
+    @Override
     public void makeMove() {
 
         Field field = Field.getField();
@@ -209,12 +204,13 @@ public class Snake extends FieldObject implements Runnable {
             moveLeft();
         }
         if (field.checkOnWall(mainCoords)) {
-            snakeDies = true;
+            dies = true;
             System.out.println("Snake dies");
             return;
         }
         snakeCoordinates.add(mainCoords);
         if (!field.findFrog) {
+            System.out.println(field.findFrog);
             snakeCoordinates.remove(0);
         }
         addOnField(field);

@@ -12,16 +12,17 @@ import java.util.Random;
  *
  * @author admin
  */
-public class Frog extends FieldObject {
+public class Frog extends FieldObject implements Runnable {
 
     public static int frogCount;
     final static int CELL_CODE = 1;
-    boolean died;
+    boolean dies;
 
     public Frog(Field field) {
 
         mainCoords = field.findRandomCell();
         addOnField(field);
+        delay = 2000; 
 
     }
 
@@ -42,7 +43,7 @@ public class Frog extends FieldObject {
     }
 
     @Override
-    void addOnField(Field field) {
+    final void addOnField(Field field) {
 
         System.out.println(mainCoords[0] + mainCoords[1]);
         int[] frogCoords = getMainCoords();
@@ -88,39 +89,10 @@ public class Frog extends FieldObject {
 
     @Override
     public void run() {
-        if (died) {
-            // deleteFromField(field);
-            return;
-        }
+      
+       
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-
-        int dir = findDirection();
-        switch (dir) {
-            case 0: {
-                moveDown();
-                break;
-            }
-            case 1: {
-                moveLeft();
-                break;
-            }
-            case 2: {
-                moveRight();
-                break;
-            }
-            case 3: {
-                moveUp();
-                break;
-            }
-
-        }
-        //      addOnField(field);
-
+       
     }
 
     public void makeMove() {

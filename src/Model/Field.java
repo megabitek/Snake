@@ -49,16 +49,18 @@ public class Field {
         }
     }
 
-    public boolean checkField(Snake snake, Frog frog) {
+    public synchronized boolean checkField(Snake snake, Frog frog) {
         int[] frogCoords = frog.getMainCoords();
         int[] snakeCoords = snake.getHeadCoords();
         if ((field.cells[snakeCoords[0]][snakeCoords[1]].code == Snake.CELL_CODE_TAIL)
                 || (field.cells[snakeCoords[0]][snakeCoords[1]].code == Snake.CELL_CODE)) {
-            snake.snakeDies = true;
+            snake.dies = true;
+            frog.dies=true; 
         }
-        findFrog = (frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1]);
-
-        return findFrog;
+         field.findFrog=(frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1]);
+      /*  System.out.println(field.findFrog);
+        System.out.println(findFrog);
+        */return findFrog;
     }
 
     /*поиск пустой ячейки для добавления лягушки */
