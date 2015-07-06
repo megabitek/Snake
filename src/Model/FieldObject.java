@@ -16,10 +16,10 @@ public class FieldObject implements Runnable {
     public boolean dies; 
     static int CELL_CODE;
 
-    void addOnField(Field field) {
+    void  addOnField(Field field) {
     }
 
-    void deleteFromField(Field field) {
+    void  deleteFromField(Field field) {
 
     }
 
@@ -73,20 +73,23 @@ public class FieldObject implements Runnable {
 
         this.mainCoords = newCoords;
     }
-     void makeMove(){}; 
+     public  synchronized void makeMove(){}; 
 
     @Override
     public void run() {
-         while (!dies){
+          
+         while (true){
         try {
+            if (dies) break;
             Thread.sleep(delay);
-            makeMove(); 
+            makeMove();
+            
         } catch (InterruptedException ex) {
             ex.printStackTrace();
-        }}
+        }
 
-    }
+    }}}
 
     
 
-}
+

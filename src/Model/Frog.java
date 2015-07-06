@@ -16,7 +16,7 @@ public class Frog extends FieldObject implements Runnable {
 
     public static int frogCount;
     final static int CELL_CODE = 1;
-    boolean dies;
+   
 
     public Frog(Field field) {
 
@@ -43,9 +43,9 @@ public class Frog extends FieldObject implements Runnable {
     }
 
     @Override
-    final void addOnField(Field field) {
+    final synchronized void addOnField(Field field) {
 
-        System.out.println(mainCoords[0] + mainCoords[1]);
+       
         int[] frogCoords = getMainCoords();
 
         field.cells[frogCoords[0]][frogCoords[1]].code = Frog.CELL_CODE;
@@ -55,16 +55,16 @@ public class Frog extends FieldObject implements Runnable {
     @Override
     void moveUp() {
 
-        System.out.println("frog move up");
+        
         super.moveUp();
 
     }
 
-    ;
+    
     @Override
     void moveDown() {
 
-        System.out.println("frog move down");
+       
 
         super.moveDown();
 
@@ -73,7 +73,7 @@ public class Frog extends FieldObject implements Runnable {
     @Override
     void moveRight() {
 
-        System.out.println("frog move right");
+        
 
         super.moveRight();
 
@@ -81,7 +81,7 @@ public class Frog extends FieldObject implements Runnable {
 
     @Override
     void moveLeft() {
-        System.out.println("frog move left");
+      
 
         super.moveLeft();
 
@@ -90,17 +90,18 @@ public class Frog extends FieldObject implements Runnable {
     @Override
     public void run() {
       
-       
+       super.run();
 
        
     }
 
-    public void makeMove() {
+    @Override
+    public synchronized void makeMove() {
 
-      //  System.out.println("1: " + mainCoords[0] + "  " + mainCoords[1]);
+     
         Field field = Field.getField();
        
-       // System.out.println("2: " + mainCoords[0] + "  " + mainCoords[1]);
+      
         while (field.cells[mainCoords[0]][mainCoords[1]].code != Cell.EMPTY_CELL_CODE) {
             int[] oldCoords = mainCoords;
 
@@ -128,12 +129,12 @@ public class Frog extends FieldObject implements Runnable {
             this.mainCoords = oldCoords;
 
         };
-        //    System.out.println("3: " + mainCoords[0] + "  " + mainCoords[1]);
+      
         }
 
         addOnField(field);
     }
-//field.addFrog(frog);
+
 
     int findDirection() {
         Random rand = new Random();

@@ -49,22 +49,29 @@ public class Field {
         }
     }
 
-    public synchronized boolean checkField(Snake snake, Frog frog) {
+    public synchronized void checkField(Snake snake, Frog frog) {
         int[] frogCoords = frog.getMainCoords();
+        System.out.println("Frog::"+frogCoords[0]+" "+frogCoords[1]);
         int[] snakeCoords = snake.getHeadCoords();
+          System.out.println("Snake::"+snakeCoords[0]+" "+snakeCoords[1]);
         if ((field.cells[snakeCoords[0]][snakeCoords[1]].code == Snake.CELL_CODE_TAIL)
                 || (field.cells[snakeCoords[0]][snakeCoords[1]].code == Snake.CELL_CODE)) {
+
             snake.dies = true;
-            frog.dies=true; 
+            frog.dies = true;
         }
-         field.findFrog=(frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1]);
-      /*  System.out.println(field.findFrog);
-        System.out.println(findFrog);
-        */return findFrog;
+        if ((frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1])) {
+          //  System.out.println("координаты лягушки и змеи равны");
+            findFrog=true; 
+        }
+        //System.out.println("field.findFrog::"+field.findFrog);
+        //System.out.println("findFrog::"+findFrog);
+     
+
     }
 
-    /*поиск пустой ячейки для добавления лягушки */
-    int[] findRandomCell() {
+   
+   synchronized int[]  findRandomCell() {
         Random rand = new Random();
         int gorizontalCoord;
         int verticalCoord;
@@ -78,12 +85,12 @@ public class Field {
 
     }
 
-    boolean checkOnWall(int[] coords) {
+    synchronized boolean checkOnWall(int[] coords) {
 
         int vertSize = verticalSize;
         int gorSize = gorizontalSize;
 
-        return (coords[0] >= vertSize || coords[0] < 0) || (coords[1] >= gorSize || coords[1] < 0);
+        return (coords[0] >= gorSize || coords[0] < 0) || (coords[1] >= vertSize || coords[1] < 0);
 
     }
 

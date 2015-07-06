@@ -25,7 +25,7 @@ public class SnakeGame {
     public static int snakeLength;
     public static int frogCount;
 
-    static boolean snakeAlive = true;
+   
 
     public static void main(String[] args) throws IOException, InterruptedException {
         try {

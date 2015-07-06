@@ -6,8 +6,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,10 +21,7 @@ public class Snake extends FieldObject implements Runnable {
     final static int CELL_CODE_TAIL = 4;
     final static int CELL_CODE = 3;
     final static int CELL_CODE_HEAD = 2;
-  
     MoveDirections moveDirection;
-    //public boolean dies;
-    // private int[] mainCoords;
     private ArrayList<int[]> snakeCoordinates;
 
     public Snake(int snakeLength, Field field) {
@@ -35,7 +30,7 @@ public class Snake extends FieldObject implements Runnable {
         for (int i = 0; i < snakeLength; i++) {
             int[] coors = new int[]{0, i};
             snakeCoordinates.add(coors);
-            delay = 1000; 
+            delay = 1000;
         }
 
         mainCoords = snakeCoordinates.get((int) snakeLength - 1);
@@ -51,7 +46,7 @@ public class Snake extends FieldObject implements Runnable {
     }
 
     @Override
-    void addOnField(Field field) {
+    void  addOnField(Field field) {
 
         int[] snakeHeadCoords = getHeadCoords();
 
@@ -93,105 +88,35 @@ public class Snake extends FieldObject implements Runnable {
 
     @Override
     void moveUp() {
-        /* Field field = Field.getField();
-         // cleanTailOnField();
-         if (canMove(MoveDirections.UP)) {
-         */ super.moveUp();/*
-         if (!field.findFrog) {
-         snakeCoordinates.remove(0);
-         }
-         field.findFrog = false;
-
-         snakeCoordinates.add(mainCoords);
-         moveDirection = MoveDirections.UP;
-         } else {
-
-         System.out.println("can't go up!");
-         return;
-         }
-
-         //  addOnField(field*/
-
+        super.moveUp();
     }
 
     @Override
     void moveDown() {
-        /*  Field field = Field.getField();
-         //  cleanTailOnField();
-         if (canMove(MoveDirections.DOWN)) {*/
-        super.moveDown();/*
-         if (!field.findFrog) {
-         snakeCoordinates.remove(0);
-         }
-         field.findFrog = false;
 
-         snakeCoordinates.add(mainCoords);
-         moveDirection = MoveDirections.DOWN;
-         } else {
-
-         System.out.println("can't go down!");
-         return;
-         }
-
-         //    addOnField(field);*/
-
-    }
-
-    void cleanTailOnField() {
+        super.moveDown();
 
     }
 
     @Override
     void moveLeft() {
-        //   Field field = Field.getField();
-        //   cleanTailOnField();
-        // if (canMove(MoveDirections.LEFT)) {
         super.moveLeft();
-         //   if (!field.findFrog) {
-        //     snakeCoordinates.remove(0);
-        //}
-        //field.findFrog = false;
-        // cleanCell(snakeCoordinates.get(0));
 
-        //snakeCoordinates.add(mainCoords);
-        //moveDirection = MoveDirections.LEFT;
-        /*} else {
-
-         System.out.println("can't go down!");
-         return;
-         }
-
-         /// addOnField(field);*/
     }
 
     @Override
     void moveRight() {
-        //Field field = Field.getField();
-        //  cleanTailOnField();
-        // if (canMove(MoveDirections.RIGHT)) {
+       
         super.moveRight();
-        //field.cleanCell(snakeCoordinates.get(0));
-        //   if (!field.findFrog) {
-        // snakeCoordinates.remove(0);
-        // }
-            /*field.findFrog = false;
-
-         snakeCoordinates.add(mainCoords);
-         moveDirection = MoveDirections.RIGHT;
-         } else {
-
-         System.out.println("can't go down!");
-         return;
-         }*/
-
-    }
+       }
 
     @Override
     public void run() {
-        super.run();}
+        super.run();
+    }
 
     @Override
-    public void makeMove() {
+    public synchronized void makeMove() {
 
         Field field = Field.getField();
         if (moveDirection == MoveDirections.DOWN) {
@@ -205,13 +130,15 @@ public class Snake extends FieldObject implements Runnable {
         }
         if (field.checkOnWall(mainCoords)) {
             dies = true;
-            System.out.println("Snake dies");
+
             return;
         }
         snakeCoordinates.add(mainCoords);
         if (!field.findFrog) {
-            System.out.println(field.findFrog);
             snakeCoordinates.remove(0);
+        } else {
+            field.findFrog=false; 
+            System.out.println("поймали лягушку в змее");
         }
         addOnField(field);
         field.findFrog = false;

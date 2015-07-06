@@ -22,8 +22,9 @@ public class View extends JPanel {
     public int[][] field;
 
     public GraphicCells gCells;
-    public JButton start;
-    public JButton exit;
+    JButton start;
+    JButton stop; 
+    JButton exit;
     public static final int CELL_SIZE = 22;
 
     public View(int[][] cells) {
@@ -40,9 +41,15 @@ public class View extends JPanel {
             gCells.requestFocusInWindow();
 
         });
-
+        stop = new JButton("Stop");
+        stop.setLocation(420, 80);
+        stop.setSize(70, 40);
+        mainFrame.add(stop);
+        stop.addActionListener((ActionEvent e)->{
+    Controller.stopGame();
+        });
         exit = new JButton("Exit");
-        exit.setLocation(420, 80);
+        exit.setLocation(420, 160);
         exit.setSize(70, 40);
         mainFrame.add(exit);
         exit.addActionListener((ActionEvent event) -> {
