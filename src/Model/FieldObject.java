@@ -81,6 +81,7 @@ public class FieldObject implements Runnable {
          while (true){
         try {
             if (dies) break;
+            
             Thread.sleep(delay);
             makeMove();
             

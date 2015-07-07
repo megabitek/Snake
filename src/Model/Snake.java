@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Model; 
 
 import java.util.ArrayList;
 
@@ -133,16 +133,22 @@ public class Snake extends FieldObject implements Runnable {
 
             return;
         }
+        
+        if ((field.cells[mainCoords[0]][mainCoords[1]].code == Snake.CELL_CODE_TAIL)
+                || (field.cells[mainCoords[0]][mainCoords[1]].code == Snake.CELL_CODE)) {
+
+            dies = true;
+         // frog.dies = true;
+        }
         snakeCoordinates.add(mainCoords);
         if (!field.findFrog) {
             snakeCoordinates.remove(0);
         } else {
             field.findFrog=false; 
-            System.out.println("поймали лягушку в змее");
+       
         }
         addOnField(field);
-        field.findFrog = false;
-
+       
     }
 
     public int getLength() {
@@ -165,5 +171,4 @@ public class Snake extends FieldObject implements Runnable {
         return true;
 
     }
-
-}
+   }

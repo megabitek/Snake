@@ -51,23 +51,14 @@ public class Field {
 
     public synchronized void checkField(Snake snake, Frog frog) {
         int[] frogCoords = frog.getMainCoords();
-        System.out.println("Frog::"+frogCoords[0]+" "+frogCoords[1]);
         int[] snakeCoords = snake.getHeadCoords();
-          System.out.println("Snake::"+snakeCoords[0]+" "+snakeCoords[1]);
-        if ((field.cells[snakeCoords[0]][snakeCoords[1]].code == Snake.CELL_CODE_TAIL)
-                || (field.cells[snakeCoords[0]][snakeCoords[1]].code == Snake.CELL_CODE)) {
-
-            snake.dies = true;
-            frog.dies = true;
-        }
+        
         if ((frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1])) {
-          //  System.out.println("координаты лягушки и змеи равны");
+            frog.dies=true; 
+           // System.out.println("лягушка должна помереть");
             findFrog=true; 
         }
-        //System.out.println("field.findFrog::"+field.findFrog);
-        //System.out.println("findFrog::"+findFrog);
-     
-
+       
     }
 
    

@@ -22,7 +22,7 @@ public class Frog extends FieldObject implements Runnable {
 
         mainCoords = field.findRandomCell();
         addOnField(field);
-        delay = 2000; 
+        delay = 3000; 
 
     }
 
@@ -90,7 +90,11 @@ public class Frog extends FieldObject implements Runnable {
     @Override
     public void run() {
       
+          System.out.println("лягушка умирает");
        super.run();
+       if (dies) deleteFromField(Field.getField());
+       
+       
 
        
     }
@@ -103,6 +107,7 @@ public class Frog extends FieldObject implements Runnable {
        
       
         while (field.cells[mainCoords[0]][mainCoords[1]].code != Cell.EMPTY_CELL_CODE) {
+            
             int[] oldCoords = mainCoords;
 
             int dir = findDirection();
@@ -131,7 +136,9 @@ public class Frog extends FieldObject implements Runnable {
         };
       
         }
+     if (field.cells[mainCoords[0]][mainCoords[1]].code!=Cell.EMPTY_CELL_CODE){
 
+     Field.field.printField();}
         addOnField(field);
     }
 

@@ -12,6 +12,7 @@ import Model.Snake.MoveDirections;
 import Model.SnakeGame;
 import View.View;
 import java.awt.event.KeyEvent;
+import java.lang.Thread.State;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -54,18 +55,23 @@ public class Controller {
             }
 
             for (int i = 0; i < SnakeGame.frogCount; i++) {
-                if (frogs.size() == SnakeGame.frogCount) {
+              
+               // if (frogs.size() == SnakeGame.frogCount) {
                     field.checkField(snake, frogs.get(i));
-                    if (frogs.get(i).dies) {
-                        frogs.remove(i);
-                        thrFrogs.remove(i);
-                    }
+                    if (thrFrogs.get(i).getState() == State.TERMINATED) {
+                        {
+                            frogs.remove(i);
+                            thrFrogs.remove(i);
+                            checkFrogCount(field); 
+                            //checkFrogCount(field);
+                            
+                            System.out.println("количество лягух" + frogs.size());
+                            System.out.println("количество потоков лягух" + thrFrogs.size());
+                        }
 
-                   
-
-                //} else {
-                    // checkFrogCount(field);
-                    //}
+//                    } else {
+//checkFrogCount(field);
+//                    }
                 }
                 //   field.printField();
                 int count = snake.getLength();
@@ -75,9 +81,8 @@ public class Controller {
                 mainFrame.gCells.setCells(fieldCells2);
             }
 
-        }}
-
-    
+        }
+    }
 
     public static void turnSnake(KeyEvent e) {
 
@@ -111,20 +116,25 @@ public class Controller {
                 Thread newThreadFrog = new Thread(frog);
                 newThreadFrog.start();
                 thrFrogs.add(newThreadFrog);
+                System.out.println("создаем новую лягушку");
             }
         }
 
     }
 
     public static void turnGame() {
+        frogs.removeAll(frogs);
+        thrFrogs.removeAll(frogs);
         Field field = Field.getField();
         snake = new Snake(SnakeGame.snakeLength, field);
         thrSnake = new Thread(snake);
-
+        thrSnake.setPriority(Thread.MAX_PRIORITY);
+        
         for (int i = 0; i < SnakeGame.frogCount; i++) {
             Frog frog = (new Frog(field));
             frogs.add(frog);
             thrFrogs.add(new Thread(frog));
+            thrFrogs.get(i).setPriority(Thread.NORM_PRIORITY );
             thrFrogs.get(i).start();
         }
         thrSnake.start();

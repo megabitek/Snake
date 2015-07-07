@@ -6,7 +6,6 @@
 package View;
 
 import Controller.Controller;
-import static Controller.Controller.*;
 import static Model.Field.gorizontalSize;
 import static Model.Field.verticalSize;
 import java.awt.Color;
@@ -14,10 +13,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -28,12 +29,14 @@ import javax.swing.Timer;
  */
 public class GraphicCells extends JPanel implements ActionListener {
 
-    Timer mainTimer = new Timer(100, this);
+    Timer mainTimer = new Timer(20, this);
     int cells[][];
     Image img;
     int x;
     int y;
     int count;
+    List snake; 
+    List frogs; 
 
 
     GraphicCells(int cells[][]) {
@@ -43,6 +46,9 @@ public class GraphicCells extends JPanel implements ActionListener {
         setFocusable(true);
 
     }
+    
+    /*public void setSnake(ArrayList<int[]> snakeCoords){}
+    public void setFrogs(ArrayList<it>)*/
 
     public void setCells(int[][] cells) {
         this.cells = cells;
@@ -60,18 +66,7 @@ public class GraphicCells extends JPanel implements ActionListener {
     public void paint(Graphics g) {
 
         g = (Graphics2D) g;
-       /* for (int i = 0; i < Field.v.length; i++) {
-            int[] arrayRow = cells[i];
-            x = (i * View.CELL_SIZE) + 7;
-
-            for (int j = 0; j < arrayRow.length; j++) {
-                y = (j * View.CELL_SIZE) + 5;
-                img = new ImageIcon(findImage(arrayRow[j])).getImage();
-                g.drawImage(img, x, y, null);
-
-            }
-
-        }*/
+      
             for (int i = 0; i < gorizontalSize; i++) {
             for (int j = 0; j < verticalSize; j++) {
               img = new ImageIcon(findImage(cells[i][j])).getImage();  
