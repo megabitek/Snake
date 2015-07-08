@@ -13,13 +13,14 @@ public class FieldObject implements Runnable {
 
     int[] mainCoords;
     int delay; 
+    public boolean moved; 
     public boolean dies; 
     static int CELL_CODE;
 
-    void  addOnField(Field field) {
+    public void  addOnField(Field field) {
     }
 
-    void  deleteFromField(Field field) {
+    void   deleteFromField(Field field) {
 
     }
 
@@ -84,6 +85,7 @@ public class FieldObject implements Runnable {
             
             Thread.sleep(delay);
             makeMove();
+            this.moved=true; 
             
         } catch (InterruptedException ex) {
             ex.printStackTrace();

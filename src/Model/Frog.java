@@ -31,8 +31,12 @@ public class Frog extends FieldObject implements Runnable {
         return mainCoords;
     }
 
+    /**
+     *
+     * @param field
+     */
     @Override
-    void deleteFromField(Field field) {
+    public void deleteFromField(Field field) {
 
         field.cells[mainCoords[0]][mainCoords[1]].setCode(Cell.EMPTY_CELL_CODE);
     }
@@ -42,13 +46,18 @@ public class Frog extends FieldObject implements Runnable {
         this.mainCoords = frogCoords;
     }
 
+    /**
+     *
+     * @param field (поле на которое лягушка будет добавлена ) добавляет на поле лягушку 
+     */
     @Override
-    final synchronized void addOnField(Field field) {
+    public final synchronized void addOnField(Field field) {
 
        
         int[] frogCoords = getMainCoords();
 
         field.cells[frogCoords[0]][frogCoords[1]].code = Frog.CELL_CODE;
+        moved=false; 
 
     }
 
@@ -90,7 +99,7 @@ public class Frog extends FieldObject implements Runnable {
     @Override
     public void run() {
       
-          System.out.println("лягушка умирает");
+     
        super.run();
        if (dies) deleteFromField(Field.getField());
        
@@ -139,7 +148,7 @@ public class Frog extends FieldObject implements Runnable {
      if (field.cells[mainCoords[0]][mainCoords[1]].code!=Cell.EMPTY_CELL_CODE){
 
      Field.field.printField();}
-        addOnField(field);
+       // addOnField(field);
     }
 
 

@@ -53,14 +53,20 @@ public class Controller {
                 gameOn = false;
                 return;
             }
-
+            if (snake.moved) snake.addOnField(field);
+            
+            for (int i = 0; i < SnakeGame.frogCount; i++) {
+            if (frogs.get(i).moved) frogs.get(i).addOnField(field);}
+            
+            
             for (int i = 0; i < SnakeGame.frogCount; i++) {
               
                // if (frogs.size() == SnakeGame.frogCount) {
                     field.checkField(snake, frogs.get(i));
                     if (thrFrogs.get(i).getState() == State.TERMINATED) {
-                        {
+                        {   frogs.get(i).deleteFromField(field);
                             frogs.remove(i);
+                           
                             thrFrogs.remove(i);
                             checkFrogCount(field); 
                             //checkFrogCount(field);
@@ -124,8 +130,9 @@ public class Controller {
 
     public static void turnGame() {
         frogs.removeAll(frogs);
-        thrFrogs.removeAll(frogs);
+        thrFrogs.removeAll(thrFrogs);
         Field field = Field.getField();
+        field.deleteAll();
         snake = new Snake(SnakeGame.snakeLength, field);
         thrSnake = new Thread(snake);
         thrSnake.setPriority(Thread.MAX_PRIORITY);
@@ -143,6 +150,9 @@ public class Controller {
 
     public static void stopGame() {
         snake.dies = true;
+        for (int i = 0; i < SnakeGame.frogCount; i++) {
+        frogs.get(i).dies=true;}
+        
     }
 
 }

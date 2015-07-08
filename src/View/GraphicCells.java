@@ -29,7 +29,7 @@ import javax.swing.Timer;
  */
 public class GraphicCells extends JPanel implements ActionListener {
 
-    Timer mainTimer = new Timer(20, this);
+    Timer mainTimer = new Timer(100, this);
     int cells[][];
     Image img;
     int x;

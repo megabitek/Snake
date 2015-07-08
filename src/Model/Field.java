@@ -41,7 +41,7 @@ public class Field {
         return field;
     }
 
-    void deleteAll() {
+    public void deleteAll() {
         for (int i = 0; i < gorizontalSize; i++) {
             for (int j = 0; j < verticalSize; j++) {
                 cells[i][j].code = 0;

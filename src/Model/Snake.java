@@ -45,8 +45,12 @@ public class Snake extends FieldObject implements Runnable {
         field.cells[tailCoords[0]][tailCoords[1]].code = Cell.EMPTY_CELL_CODE;
     }
 
+    /**
+     *
+     * @param field добавляет змею на поле 
+     */
     @Override
-    void  addOnField(Field field) {
+    public void  addOnField(Field field) {
 
         int[] snakeHeadCoords = getHeadCoords();
 
@@ -57,7 +61,7 @@ public class Snake extends FieldObject implements Runnable {
         field.cells[snakeHeadCoords[0]][snakeHeadCoords[1]].code = Snake.CELL_CODE_HEAD;
         int[] tailCoords = getSnakeCoordinates().get(0);
         field.cells[tailCoords[0]][tailCoords[1]].code = Snake.CELL_CODE_TAIL;
-
+        moved=false; 
     }
 
     MoveDirections getMoveDirection() {
@@ -138,7 +142,7 @@ public class Snake extends FieldObject implements Runnable {
                 || (field.cells[mainCoords[0]][mainCoords[1]].code == Snake.CELL_CODE)) {
 
             dies = true;
-         // frog.dies = true;
+        
         }
         snakeCoordinates.add(mainCoords);
         if (!field.findFrog) {
@@ -147,7 +151,8 @@ public class Snake extends FieldObject implements Runnable {
             field.findFrog=false; 
        
         }
-        addOnField(field);
+        
+      //  addOnField(field);
        
     }
 
