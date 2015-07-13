@@ -6,12 +6,7 @@
 package Model;
 
 import Controller.Controller;
-import View.GraphicCells;
-import View.View;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import javax.swing.JFrame;
 
 /**
  *
@@ -20,16 +15,15 @@ import javax.swing.JFrame;
 public class SnakeGame {
 
     /**
-     *поле для хранения длинны змеи и текущего счета. 
+     * поле для хранения длинны змеи и текущего счета.
      */
     public static int snakeLength;
     public static int frogCount;
-
-   
+    public static int snakeDelay;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
-            if (args.length == 4) {
+            if (args.length == 5) {
                 int gorSize = Integer.parseInt(args[0]);
                 if ((gorSize > 1) & (gorSize < 19)) {
                     Field.gorizontalSize = gorSize;
@@ -56,26 +50,30 @@ public class SnakeGame {
                 } else {
                     frogCount = 1;
                 }
+                double snDelay = Integer.parseInt(args[4]);
+                if (snDelay > 0.1 & snDelay < 5) {
+                    snakeDelay = Integer.parseInt(args[4]);
+                } else {
+                    snakeDelay = 1000;
+                }
+
             } else {
                 System.out.println("not enough args!!");
-                Field.gorizontalSize = 18;
-                Field.verticalSize = 18;
-                snakeLength = 2;
-                frogCount = 1;
-
+                setDefaultArgs();
             }
         } catch (NumberFormatException e) {
-            System.out.println("you type non-integer number");
-            Field.gorizontalSize = 18;
-            Field.verticalSize = 18;
-            snakeLength = 2;
-            frogCount = 1;
-
+           setDefaultArgs();
         }
 
         Controller.startApp(snakeLength, frogCount);
+    }
 
-       
+    static void setDefaultArgs() {
+        Field.gorizontalSize = 18;
+        Field.verticalSize = 18;
+        snakeLength = 2;
+        frogCount = 1;
+        snakeDelay = 1000;
     }
 
 }

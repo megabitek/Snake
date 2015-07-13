@@ -21,10 +21,10 @@ public class View extends JPanel {
     public int[][] field;
 
     public GraphicCells gCells;
-    JButton start;
-    JButton stop; 
+    public JButton start;
+    public JButton stop;
     JButton exit;
-    public static final int CELL_SIZE = 22;
+    public static final int CELL_SIZE = 23;
 
     public View(int[][] cells) {
         this.field = cells;
@@ -35,7 +35,7 @@ public class View extends JPanel {
         start.setSize(70, 40);
         mainFrame.add(start);
         start.addActionListener((ActionEvent e) -> {
-            //                try {
+
             Controller.turnGame();
             gCells.requestFocusInWindow();
 
@@ -44,8 +44,9 @@ public class View extends JPanel {
         stop.setLocation(420, 80);
         stop.setSize(70, 40);
         mainFrame.add(stop);
-        stop.addActionListener((ActionEvent e)->{
-    Controller.stopGame();
+        stop.addActionListener((ActionEvent e) -> {
+            Controller.stopGame();
+            
         });
         exit = new JButton("Exit");
         exit.setLocation(420, 160);
@@ -60,9 +61,11 @@ public class View extends JPanel {
         mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gCells = new GraphicCells(field);
+        gCells.newGame = true;
         mainFrame.add(gCells);
 
         mainFrame.setVisible(true);
 
     }
+    
 }

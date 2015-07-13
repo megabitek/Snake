@@ -12,15 +12,15 @@ package Model;
 public class FieldObject implements Runnable {
 
     int[] mainCoords;
-    int delay; 
-    public boolean moved; 
-    public boolean dies; 
+    int delay;
+    public boolean moved;
+    public boolean dies;
     static int CELL_CODE;
 
-    public void  addOnField(Field field) {
+    public void addOnField(Field field) {
     }
 
-    void   deleteFromField(Field field) {
+    void deleteFromField(Field field) {
 
     }
 
@@ -37,11 +37,7 @@ public class FieldObject implements Runnable {
         deleteFromField(field);
 
         int[] newCoords = new int[]{mainCoords[0] - 1, mainCoords[1]};
-//        if (checkOnWall(newCoords)) {
-//            return;
-//        }
         this.mainCoords = newCoords;
-        //addOnField(field);
 
     }
 
@@ -50,12 +46,7 @@ public class FieldObject implements Runnable {
         Field field = Field.getField();
         deleteFromField(field);
         int[] newCoords = new int[]{mainCoords[0] + 1, mainCoords[1]};
-//        if (checkOnWall(newCoords)) {
-//            return;
-//        }
         this.mainCoords = newCoords;
-        //addOnField(field);
-
     }
 
     void moveLeft() {
@@ -74,25 +65,29 @@ public class FieldObject implements Runnable {
 
         this.mainCoords = newCoords;
     }
-     public  synchronized void makeMove(){}; 
+
+    public synchronized void makeMove() {
+    }
+
+    ; 
 
     @Override
     public void run() {
-          
-         while (true){
-        try {
-            if (dies) break;
-            
-            Thread.sleep(delay);
-            makeMove();
-            this.moved=true; 
-            
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+
+        while (true) {
+            try {
+                if (dies) {
+                    break;
+                }
+
+                Thread.sleep(delay);
+                makeMove();
+                this.moved = true;
+
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+
         }
-
-    }}}
-
-    
-
-
+    }
+}

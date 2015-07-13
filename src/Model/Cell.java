@@ -10,10 +10,8 @@ package Model;
  * @author admin
  */
 public class Cell {
-    
-    public static final int EMPTY_CELL_CODE=0; 
 
-    //атрибут показывает что находится в ячейке, определяется из значения свойства cellCode класса Frog и Snake
+    public static final int EMPTY_CELL_CODE = 0;
     int code;
 
     void setCode(int code) {
@@ -23,8 +21,9 @@ public class Cell {
     int getCode() {
         return this.code;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return new Integer(code).toString();
     }
 

@@ -14,6 +14,7 @@ import View.View;
 import java.awt.event.KeyEvent;
 import java.lang.Thread.State;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,65 +29,93 @@ public class Controller {
     static boolean gameOn;
     static ArrayList<Frog> frogs = new ArrayList<>();
     static ArrayList<Thread> thrFrogs = new ArrayList<>();
+    static ArrayList<int[]> changeCells = new ArrayList<>();
+    static int frogDelay;
 
-    ///   Thread frogFactory; 
     public static void startApp(int snakeLenght, int frogCount) {
 
         Field field = Field.getField();
-        field.printField();
+
         int[][] fieldCells = field.getCells();
-
         mainFrame = new View(fieldCells);
-
-        mainFrame.gCells.setCells(fieldCells);
-
-//MainFrame  mainFrame=new View(Field.getCells());
     }
 
     public static void gameCycle() throws InterruptedException {
 
+        mainFrame.gCells.newGame = false;
+
         if (gameOn) {
 
             Field field = Field.getField();
+            findChangeCells(changeCells, false);
             if (snake.dies) {
                 JOptionPane.showMessageDialog(mainFrame, "Game ends!", "OK", JOptionPane.WARNING_MESSAGE);
                 gameOn = false;
                 return;
             }
-            if (snake.moved) snake.addOnField(field);
-            
+            if (snake.moved) {
+                snake.addOnField(field);
+            }
             for (int i = 0; i < SnakeGame.frogCount; i++) {
-            if (frogs.get(i).moved) frogs.get(i).addOnField(field);}
-            
-            
-            for (int i = 0; i < SnakeGame.frogCount; i++) {
-              
-               // if (frogs.size() == SnakeGame.frogCount) {
-                    field.checkField(snake, frogs.get(i));
-                    if (thrFrogs.get(i).getState() == State.TERMINATED) {
-                        {   frogs.get(i).deleteFromField(field);
-                            frogs.remove(i);
-                           
-                            thrFrogs.remove(i);
-                            checkFrogCount(field); 
-                            //checkFrogCount(field);
-                            
-                            System.out.println("количество лягух" + frogs.size());
-                            System.out.println("количество потоков лягух" + thrFrogs.size());
-                        }
-
-//                    } else {
-//checkFrogCount(field);
-//                    }
+                if (frogs.get(i).moved) {
+                    frogs.get(i).addOnField(field);
                 }
-                //   field.printField();
-                int count = snake.getLength();
+            }
+            findChangeCells(changeCells, false);
 
-                int[][] fieldCells2 = field.getCells();
+            for (int i = 0; i < SnakeGame.frogCount; i++) {
+
+                field.checkField(snake, frogs.get(i));
+                if (thrFrogs.get(i).getState() == State.TERMINATED) {
+                    {
+                        frogs.get(i).deleteFromField(field);
+                        frogs.remove(i);
+
+                        thrFrogs.remove(i);
+                        checkFrogCount(field);
+                    }
+                }
+                findChangeCells(changeCells, false);
+                int count = snake.getLength() - SnakeGame.snakeLength;
+                int[][] fieldCells = field.getCells();
+
                 mainFrame.gCells.setCount(count);
-                mainFrame.gCells.setCells(fieldCells2);
+                mainFrame.gCells.setCells(fieldCells, changeCells);
+
             }
 
+        }
+        setButtonsEnable();
+    }
+
+    static void findChangeCells(ArrayList<int[]> cellsList, boolean newGame) {
+
+        ArrayList<int[]> snakeCoords = snake.getSnakeCoordinates();
+        if (newGame) {
+            for (int[] coords : snakeCoords) {
+                if (!cellsList.contains(coords)) {
+                    cellsList.add(coords);
+                }
+            }
+        } else {
+            int[] tail = snakeCoords.get(0);
+            if (!cellsList.contains(tail)) {
+                cellsList.add(tail);
+            }
+            int[] head = snakeCoords.get(snakeCoords.size() - 1);
+            if (!cellsList.contains(head)) {
+                cellsList.add(head);
+            }
+            int[] body = snakeCoords.get(snakeCoords.size() - 2);
+            if (!cellsList.contains(body)) {
+                cellsList.add(body);
+            }
+        }
+        for (Frog frog : frogs) {
+            int[] frogCoor = frog.getMainCoords();
+            if (!cellsList.contains(frogCoor)) {
+                cellsList.add(frogCoor);
+            }
         }
     }
 
@@ -117,12 +146,11 @@ public class Controller {
         if (thrFrogs.size() < SnakeGame.frogCount) {
             int dif = SnakeGame.frogCount - thrFrogs.size();
             for (int i = 0; i < dif; i++) {
-                Frog frog = new Frog(field);
+                Frog frog = new Frog(field, frogDelay);
                 frogs.add(frog);
                 Thread newThreadFrog = new Thread(frog);
                 newThreadFrog.start();
                 thrFrogs.add(newThreadFrog);
-                System.out.println("создаем новую лягушку");
             }
         }
 
@@ -133,26 +161,40 @@ public class Controller {
         thrFrogs.removeAll(thrFrogs);
         Field field = Field.getField();
         field.deleteAll();
-        snake = new Snake(SnakeGame.snakeLength, field);
+        int snakeDelay = SnakeGame.snakeDelay;
+        snake = new Snake(SnakeGame.snakeLength, field, snakeDelay);
         thrSnake = new Thread(snake);
         thrSnake.setPriority(Thread.MAX_PRIORITY);
-        
+        frogDelay = snakeDelay * 2;
         for (int i = 0; i < SnakeGame.frogCount; i++) {
-            Frog frog = (new Frog(field));
+            Frog frog = new Frog(field, frogDelay);
             frogs.add(frog);
             thrFrogs.add(new Thread(frog));
-            thrFrogs.get(i).setPriority(Thread.NORM_PRIORITY );
+            thrFrogs.get(i).setPriority(Thread.NORM_PRIORITY);
             thrFrogs.get(i).start();
         }
-        thrSnake.start();
         gameOn = true;
+        thrSnake.start();
+        findChangeCells(changeCells, true);
+        int[][] fieldCells = field.getCells();
+        mainFrame.gCells.setCells(fieldCells, changeCells);
+        setButtonsEnable();
+
     }
 
     public static void stopGame() {
-        snake.dies = true;
+
+        gameOn = false;
         for (int i = 0; i < SnakeGame.frogCount; i++) {
-        frogs.get(i).dies=true;}
-        
+            frogs.get(i).dies = true;
+        }
+        setButtonsEnable();
+
+    }
+
+    public static void setButtonsEnable() {
+        mainFrame.start.setEnabled(!gameOn);
+        mainFrame.stop.setEnabled(gameOn);
     }
 
 }

@@ -18,16 +18,16 @@ public class Frog extends FieldObject implements Runnable {
     final static int CELL_CODE = 1;
    
 
-    public Frog(Field field) {
+    public Frog(Field field, int frDelay) {
 
         mainCoords = field.findRandomCell();
         addOnField(field);
-        delay = 3000; 
+        delay = frDelay; 
 
     }
 
     @Override
-    int[] getMainCoords() {
+   public int[] getMainCoords() {
         return mainCoords;
     }
 
@@ -45,6 +45,9 @@ public class Frog extends FieldObject implements Runnable {
     void setMainCoords(int[] frogCoords) {
         this.mainCoords = frogCoords;
     }
+
+   
+    
 
     /**
      *

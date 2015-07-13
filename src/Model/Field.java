@@ -16,10 +16,8 @@ public class Field {
     public static int gorizontalSize;
     public static int verticalSize;
     Cell[][] cells;
-    boolean change;
     public static Field field;
     public boolean findFrog;
-    // int[] frogCoords;
 
     private Field(int gorizontalSize, int verticalSize) {
 
@@ -52,17 +50,15 @@ public class Field {
     public synchronized void checkField(Snake snake, Frog frog) {
         int[] frogCoords = frog.getMainCoords();
         int[] snakeCoords = snake.getHeadCoords();
-        
+
         if ((frogCoords[0] == snakeCoords[0]) & (snakeCoords[1] == frogCoords[1])) {
-            frog.dies=true; 
-           // System.out.println("лягушка должна помереть");
-            findFrog=true; 
+            frog.dies = true;
+            findFrog = true;
         }
-       
+
     }
 
-   
-   synchronized int[]  findRandomCell() {
+    synchronized int[] findRandomCell() {
         Random rand = new Random();
         int gorizontalCoord;
         int verticalCoord;

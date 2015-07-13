@@ -24,15 +24,15 @@ public class Snake extends FieldObject implements Runnable {
     MoveDirections moveDirection;
     private ArrayList<int[]> snakeCoordinates;
 
-    public Snake(int snakeLength, Field field) {
+    public Snake(int snakeLength, Field field, int snDelay) {
         //новая змея создается в правом верхнем углу
         snakeCoordinates = new ArrayList();
         for (int i = 0; i < snakeLength; i++) {
             int[] coors = new int[]{0, i};
             snakeCoordinates.add(coors);
-            delay = 1000;
+           
         }
-
+        delay = snDelay;
         mainCoords = snakeCoordinates.get((int) snakeLength - 1);
         moveDirection = MoveDirections.RIGHT;
         addOnField(field);
@@ -86,7 +86,7 @@ public class Snake extends FieldObject implements Runnable {
         return mainCoords;
     }
 
-    ArrayList<int[]> getSnakeCoordinates() {
+    public ArrayList<int[]> getSnakeCoordinates() {
         return snakeCoordinates;
     }
 
